@@ -13,11 +13,14 @@ import {
 } from "@/lib/api";
 
 export default async function HomePage() {
-  const [projects, presence, posts] = await Promise.all([
+  const [projectsResult, presenceResult, postsResult] = await Promise.allSettled([
     getGitHubProjects(),
     getDiscordPresence(),
     getDevtoPosts()
   ]);
+  const projects = projectsResult.status === "fulfilled" ? projectsResult.value : [];
+  const presence = presenceResult.status === "fulfilled" ? presenceResult.value : null;
+  const posts = postsResult.status === "fulfilled" ? postsResult.value : [];
   const techStack = techIconMap(projects.map((project) => project.language));
 
   return (
@@ -36,6 +39,12 @@ export default async function HomePage() {
             className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
           >
             View Resume
+          </a>
+          <a
+            href="#gallery"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900"
+          >
+            Open Photo Dashboard
           </a>
           <a
             href="https://github.com/inezaodon"
@@ -87,7 +96,8 @@ export default async function HomePage() {
         </div>
 
         <div className="space-y-4">
-          <h2 id="gallery" className="text-2xl font-bold">Life Outside Code</h2>
+          <h2 id="gallery" className="text-2xl font-bold">Photo Dashboard</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300">Real moments, fun energy, and yes, a little chaos in the best way.</p>
           <PhotoSlideshow slides={featuredSlides} />
           <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-800">
             <h3 className="font-semibold">What teammates can expect</h3>
@@ -124,16 +134,32 @@ export default async function HomePage() {
       <section className="grid gap-8 md:grid-cols-2">
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">Latest Writing</h2>
-          <ul className="space-y-3">
-            {posts.map((post) => (
-              <li key={post.id} className="rounded-xl border border-slate-200 p-4 dark:border-slate-800">
-                <a href={post.url} target="_blank" rel="noreferrer" className="font-semibold hover:underline">
-                  {post.title}
-                </a>
-                <p className="text-sm text-slate-500">{new Date(post.published_at).toLocaleDateString()}</p>
-              </li>
-            ))}
-          </ul>
+          {posts.length ? (
+            <ul className="space-y-3">
+              {posts.map((post) => (
+                <li key={post.id} className="rounded-xl border border-slate-200 p-4 dark:border-slate-800">
+                  <a href={post.url} target="_blank" rel="noreferrer" className="font-semibold hover:underline">
+                    {post.title}
+                  </a>
+                  <p className="text-sm text-slate-500">{new Date(post.published_at).toLocaleDateString()}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="space-y-3">
+              <p className="rounded-xl border border-slate-200 p-4 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
+                Live Dev.to posts are unavailable right now, so here are featured writings from this portfolio.
+              </p>
+              {papers.slice(0, 3).map((paper) => (
+                <article key={paper.file} className="rounded-xl border border-slate-200 p-4 dark:border-slate-800">
+                  <a href={paper.file} target="_blank" rel="noreferrer" className="font-semibold hover:underline">
+                    {paper.title}
+                  </a>
+                  <p className="mt-1 text-sm text-slate-500">{paper.category}</p>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">
