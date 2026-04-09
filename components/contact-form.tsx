@@ -14,17 +14,20 @@ export function ContactForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (response.ok) {
-      setState("success");
-      form.reset();
-      return;
+      if (response.ok) {
+        setState("success");
+        form.reset();
+        return;
+      }
+    } catch {
+      // Network/request failure falls through to error state.
     }
 
     setState("error");
