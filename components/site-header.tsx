@@ -6,7 +6,9 @@ import { MagneticButton } from "@/components/magnetic-button";
 
 const links = [
   { href: "#projects", label: "Projects" },
-  { href: "#writing", label: "Writing" },
+  { href: "#resume", label: "Resume" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#papers", label: "Papers" },
   { href: "#contact", label: "Contact" }
 ];
 
@@ -18,7 +20,7 @@ export function SiteHeader() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-4xl font-extrabold">Ineza Odon</h1>
-          <p className="mt-2 text-slate-600 dark:text-slate-300">Super-dynamic portfolio powered by live APIs.</p>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">Building useful software, shipping consistently, and solving real problems.</p>
         </div>
 
         <div className="hidden items-center gap-3 md:flex">

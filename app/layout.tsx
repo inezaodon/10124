@@ -3,8 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Ineza Odon | Dynamic Portfolio",
-  description: "API-driven portfolio with live GitHub, writing feed, and real-time status."
+  title: "Odon Ineza | Software Engineer Portfolio",
+  description: "Project-first portfolio showcasing software engineering work, resume highlights, and research writing."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
