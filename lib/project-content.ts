@@ -27,8 +27,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Structured for easy updates as new projects and research are published."
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    coverImage: "/project-covers/portfolio.svg",
-    galleryImage: "/images/slideshow/05-fullsizerender.jpg"
+    coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
   },
   "nanochat-replica": {
     slug: "nanochat-replica",
@@ -46,8 +46,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Bridges theoretical AI ideas with practical engineering execution."
     ],
     stack: ["JavaScript", "HTML", "Transformer Concepts", "Model Experimentation"],
-    coverImage: "/project-covers/nanochat.svg",
-    galleryImage: "/images/slideshow/10-img-6261.jpg"
+    coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1675557009875-436f2d2f8570?auto=format&fit=crop&w=1400&q=80"
   },
   brilliantsciences: {
     slug: "brilliantsciences",
@@ -65,8 +65,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Designed to scale from prototype to production-ready classroom usage."
     ],
     stack: ["React", "Next.js", "JavaScript", "Web Platform Design"],
-    coverImage: "/project-covers/brilliant-sciences.svg",
-    galleryImage: "/images/slideshow/18-img-7706.jpg"
+    coverImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=80"
   },
   PRINCOMP_FINAL_PREOJECT: {
     slug: "PRINCOMP_FINAL_PREOJECT",
@@ -84,8 +84,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Emphasizes clarity, interpretation, and exploratory insight."
     ],
     stack: ["Python", "Jupyter Notebook", "Plotly", "Data Visualization", "HTML"],
-    coverImage: "/project-covers/nyc-taxi.svg",
-    galleryImage: "/images/slideshow/22-img-8921.jpg"
+    coverImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1400&q=80"
   },
   inezaodon: {
     slug: "inezaodon",
@@ -103,12 +103,12 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Complements project repos with personal engineering context."
     ],
     stack: ["Markdown", "GitHub Profile", "Technical Branding"],
-    coverImage: "/project-covers/profile.svg",
-    galleryImage: "/images/slideshow/26-pr-2-06-26-wabruda-event-123.jpg"
+    coverImage: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80"
   }
 };
 
 export const fallbackProjectContent: Pick<ProjectContent, "coverImage" | "shortSummary"> = {
-  coverImage: "/project-covers/default.svg",
+  coverImage: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80",
   shortSummary: "A software project focused on practical engineering and measurable outcomes."
 };

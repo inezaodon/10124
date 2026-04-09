@@ -59,11 +59,6 @@ export const featuredSlides = [
     src: "/images/slideshow/18-img-7706.jpg",
     alt: "Odon with an energetic expression",
     caption: "Face of someone who just fixed a bug that survived three code reviews."
-  },
-  {
-    src: "/images/slideshow/26-pr-2-06-26-wabruda-event-123.jpg",
-    alt: "Odon participating in an event",
-    caption: "Community work, teamwork, and no shortage of snacks."
   }
 ];
 
