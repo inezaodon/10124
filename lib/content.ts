@@ -41,23 +41,23 @@ export const resumeHighlights = {
 
 export const featuredSlides = [
   {
-    src: "/images/slideshow/01-793bcba5-0c5d-469f-ab7b-094be3fe623f.jpg",
-    alt: "Odon enjoying a fun moment",
+    src: "/images/slideshow/IMG_0061.JPG",
+    alt: "Photo from life outside code",
     caption: "Proof that debugging and good vibes can coexist."
   },
   {
-    src: "/images/slideshow/05-fullsizerender.jpg",
-    alt: "Odon in a memorable scene",
+    src: "/images/slideshow/IMG_0787.JPG",
+    alt: "A memorable moment",
     caption: "When the project ships and everything still works on the first deploy."
   },
   {
-    src: "/images/slideshow/10-img-6261.jpg",
-    alt: "Odon in an activity setting",
+    src: "/images/slideshow/IMG_7706.JPG",
+    alt: "Out and about",
     caption: "Weekend mode: recharge, then come back with better ideas."
   },
   {
-    src: "/images/slideshow/18-img-7706.jpg",
-    alt: "Odon with an energetic expression",
+    src: "/images/slideshow/IMG_7023.JPEG",
+    alt: "Something fun",
     caption: "Face of someone who just fixed a bug that survived three code reviews."
   }
 ];
