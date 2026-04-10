@@ -49,37 +49,22 @@ const items: Item[] = [
 const chip =
   "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200/90 bg-white/90 shadow-sm transition hover:border-teal-500/80 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-900/90 dark:hover:border-teal-500/60";
 
-type SocialLinksProps = {
-  className?: string;
-  /** Show the address as a mailto link under the icon row */
-  showEmailLine?: boolean;
-};
-
-export function SocialLinks({ className = "", showEmailLine = true }: SocialLinksProps) {
+export function SocialLinks({ className = "" }: { className?: string }) {
   return (
-    <div className={className}>
-      <ul className="flex flex-wrap items-center gap-2">
-        {items.map(({ href, label, Icon }) => (
-          <li key={label}>
-            <a
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noreferrer" : undefined}
-              aria-label={label}
-              className={chip}
-            >
-              <Icon className="shrink-0" />
-            </a>
-          </li>
-        ))}
-      </ul>
-      {showEmailLine && (
-        <p className="mt-2 text-sm text-slate-600 dark:text-zinc-400">
-          <a href={MAIL} className="pop-link font-medium">
-            {CONTACT_EMAIL}
+    <ul className={`flex flex-wrap items-center gap-2 ${className}`}>
+      {items.map(({ href, label, Icon }) => (
+        <li key={label}>
+          <a
+            href={href}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noreferrer" : undefined}
+            aria-label={label}
+            className={chip}
+          >
+            <Icon className="shrink-0" />
           </a>
-        </p>
-      )}
-    </div>
+        </li>
+      ))}
+    </ul>
   );
 }

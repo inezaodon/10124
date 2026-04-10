@@ -17,17 +17,16 @@ export function SiteHeader() {
 
   return (
     <header className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <div>
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-zinc-50">Ineza Odon</h1>
           <p className="mt-2 max-w-xl text-base text-slate-600 dark:text-zinc-400">
             Building useful software, shipping consistently, and solving real problems.
           </p>
-          <SocialLinks className="mt-3" />
-        </div>
-
-        <div className="hidden items-center gap-3 self-start md:flex">
-          <ThemeToggle />
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <ThemeToggle />
+            <SocialLinks />
+          </div>
         </div>
 
         <button
@@ -63,9 +62,6 @@ export function SiteHeader() {
               {link.label}
             </a>
           ))}
-          <div className="pt-2">
-            <ThemeToggle />
-          </div>
         </nav>
       )}
     </header>
