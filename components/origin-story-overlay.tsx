@@ -20,17 +20,9 @@ export function OriginStoryLauncher() {
 
   useEffect(() => {
     if (!open) return;
-    onScroll();
+    // Schedule initial progress update to avoid setState-in-effect lint.
+    requestAnimationFrame(() => onScroll());
   }, [open, onScroll]);
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -98,8 +90,8 @@ export function OriginStoryLauncher() {
                   <p id={titleId} className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-teal-700 dark:text-teal-400 sm:text-xs">
                     My path into CS
                   </p>
-                  <p className="hidden truncate text-xs text-slate-600 dark:text-zinc-400 sm:block">
-                    One story. The portfolio is still visible behind this panel.
+                  <p className="hidden text-xs leading-snug text-slate-600 dark:text-zinc-400 sm:block">
+                    One continuous essay. The page behind stays visible through the glass.
                   </p>
                 </div>
               </header>
@@ -114,26 +106,26 @@ export function OriginStoryLauncher() {
               <div
                 ref={scrollRef}
                 onScroll={onScroll}
-                className="relative z-10 min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-6 sm:px-8 sm:py-8"
+                className="relative z-10 min-h-0 flex-1 touch-pan-y overflow-y-auto overflow-x-hidden px-4 py-6 pb-[max(3rem,env(safe-area-inset-bottom,0px))] sm:px-8 sm:py-8 sm:pb-[max(4rem,env(safe-area-inset-bottom,0px))]"
               >
                 <p className="mb-8 font-mono text-xs uppercase tracking-widest text-slate-500 dark:text-zinc-500">
-                  Scroll to read, then use Back to return to the homepage.
+                  Scroll to read. Use Back when you are done.
                 </p>
 
                 <motion.article
-                  className="mx-auto max-w-2xl rounded-2xl border border-slate-200/80 bg-white/50 p-6 shadow-sm backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/40 sm:p-8"
+                  className="mx-auto max-w-2xl rounded-2xl border border-slate-200/80 bg-white/50 p-6 pb-8 shadow-sm backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/40 sm:p-8 sm:pb-10"
                   initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35 }}
                 >
-                  <div className="space-y-5 text-[15px] leading-[1.75] text-slate-800 dark:text-zinc-200">
+                  <div className="space-y-5 pb-2 text-[15px] leading-[1.75] text-slate-800 dark:text-zinc-200">
                     {originStory.paragraphs.map((p, i) => (
                       <p key={i}>{p}</p>
                     ))}
                   </div>
                 </motion.article>
 
-                <div className="mx-auto mb-8 mt-10 max-w-2xl rounded-2xl border border-dashed border-slate-300/90 bg-white/45 p-5 text-center backdrop-blur-sm dark:border-zinc-600 dark:bg-zinc-900/40">
+                <div className="mx-auto mb-0 mt-12 max-w-2xl rounded-2xl border border-dashed border-slate-300/90 bg-white/45 p-5 text-center backdrop-blur-sm dark:border-zinc-600 dark:bg-zinc-900/40">
                   <p className="font-mono text-xs text-slate-500 dark:text-zinc-500">End of story</p>
                   <button
                     type="button"

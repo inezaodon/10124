@@ -60,9 +60,16 @@ export function techIconMap(stack: Array<string | null | undefined>) {
     nextjs: "devicon-nextjs-original"
   };
 
-  return stack
-    .filter(Boolean)
-    .map((item) => item!.toLowerCase())
-    .map((item) => ({ label: item, iconClass: map[item] ?? "devicon-devicon-plain" }));
+  const seen = new Set<string>();
+  const unique: string[] = [];
+  for (const raw of stack) {
+    if (!raw) continue;
+    const key = raw.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(key);
+  }
+
+  return unique.map((item) => ({ label: item, iconClass: map[item] ?? "devicon-devicon-plain" }));
 }
 

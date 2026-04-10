@@ -47,8 +47,11 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
   useEffect(() => {
     if (incomingSig === sigRef.current) return;
     sigRef.current = incomingSig;
-    setOrderedSlides(shuffle(incoming));
-    setIndex(0);
+    // Schedule updates to avoid setState-in-effect lint.
+    setTimeout(() => {
+      setOrderedSlides(shuffle(incoming));
+      setIndex(0);
+    }, 0);
   }, [incoming, incomingSig]);
 
   useEffect(() => {

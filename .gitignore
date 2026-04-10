@@ -2,7 +2,3 @@ node_modules/
 .next/
 .env.local
 .DS_Store
-node_modules/
-.next/
-.env.local
-.DS_Store
