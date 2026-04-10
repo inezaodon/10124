@@ -39,27 +39,25 @@ export const resumeHighlights = {
   resumePdfPath: "/resume/Odon-Ineza-Resume.pdf"
 };
 
-export const featuredSlides = [
-  {
-    src: "/images/slideshow/IMG_0061.jpg",
-    alt: "Photo from life outside code",
-    caption: "Proof that debugging and good vibes can coexist."
-  },
-  {
-    src: "/images/slideshow/IMG_0787.jpg",
-    alt: "A memorable moment",
-    caption: "When the project ships and everything still works on the first deploy."
-  },
-  {
-    src: "/images/slideshow/IMG_7706.jpg",
-    alt: "Out and about",
-    caption: "Weekend mode: recharge, then come back with better ideas."
-  },
-  {
-    src: "/images/slideshow/IMG_7023.jpg",
-    alt: "Something fun",
-    caption: "Face of someone who just fixed a bug that survived three code reviews."
-  }
+/** Optional per-file captions; all other images use rotating fallbacks from `slideshowCaptionFallbacks`. */
+export const slideshowCaptionOverrides: Record<string, string> = {
+  "IMG_0061.jpg": "Proof that debugging and good vibes can coexist.",
+  "IMG_0787.jpg": "When the project ships and everything still works on the first deploy.",
+  "IMG_7706.jpg": "Weekend mode: recharge, then come back with better ideas.",
+  "IMG_7023.jpg": "Face of someone who just fixed a bug that survived three code reviews."
+};
+
+export const slideshowCaptionFallbacks = [
+  "Real life > perfect lighting.",
+  "Core memory unlocked.",
+  "Low battery, high serotonin.",
+  "Documenting the plot twists.",
+  "Yes, I still think about this day.",
+  "Debug later; live now.",
+  "Proof I do touch grass sometimes.",
+  "Main character energy (debug build).",
+  "Chaos, but make it aesthetic.",
+  "Another slide, another story."
 ];
 
 export const papers = [

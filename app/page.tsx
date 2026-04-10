@@ -3,7 +3,8 @@ import { ContactForm } from "@/components/contact-form";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
 import { ProjectGrid } from "@/components/project-grid";
 import { SiteHeader } from "@/components/site-header";
-import { featuredSlides, papers, resumeHighlights } from "@/lib/content";
+import { papers, resumeHighlights } from "@/lib/content";
+import { getSlideshowSlides } from "@/lib/slideshow";
 import {
   contributionsSvgUrl,
   getDevtoPosts,
@@ -13,14 +14,16 @@ import {
 } from "@/lib/api";
 
 export default async function HomePage() {
-  const [projectsResult, presenceResult, postsResult] = await Promise.allSettled([
+  const [projectsResult, presenceResult, postsResult, slidesResult] = await Promise.allSettled([
     getGitHubProjects(),
     getDiscordPresence(),
-    getDevtoPosts()
+    getDevtoPosts(),
+    getSlideshowSlides()
   ]);
   const projects = projectsResult.status === "fulfilled" ? projectsResult.value : [];
   const presence = presenceResult.status === "fulfilled" ? presenceResult.value : null;
   const posts = postsResult.status === "fulfilled" ? postsResult.value : [];
+  const slideshowSlides = slidesResult.status === "fulfilled" ? slidesResult.value : [];
   const techStack = techIconMap(projects.map((project) => project.language));
 
   return (
@@ -98,7 +101,7 @@ export default async function HomePage() {
         <div className="space-y-4">
           <h2 id="gallery" className="text-2xl font-bold">Photo Dashboard</h2>
           <p className="text-sm text-slate-600 dark:text-slate-300">Real moments, fun energy, and yes, a little chaos in the best way.</p>
-          <PhotoSlideshow slides={featuredSlides} />
+          <PhotoSlideshow slides={slideshowSlides} />
           <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-800">
             <h3 className="font-semibold">What teammates can expect</h3>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
