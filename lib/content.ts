@@ -41,22 +41,22 @@ export const resumeHighlights = {
 
 export const featuredSlides = [
   {
-    src: "/images/slideshow/IMG_0061.JPG",
+    src: "/images/slideshow/IMG_0061.jpg",
     alt: "Photo from life outside code",
     caption: "Proof that debugging and good vibes can coexist."
   },
   {
-    src: "/images/slideshow/IMG_0787.JPG",
+    src: "/images/slideshow/IMG_0787.jpg",
     alt: "A memorable moment",
     caption: "When the project ships and everything still works on the first deploy."
   },
   {
-    src: "/images/slideshow/IMG_7706.JPG",
+    src: "/images/slideshow/IMG_7706.jpg",
     alt: "Out and about",
     caption: "Weekend mode: recharge, then come back with better ideas."
   },
   {
-    src: "/images/slideshow/IMG_7023.JPEG",
+    src: "/images/slideshow/IMG_7023.jpg",
     alt: "Something fun",
     caption: "Face of someone who just fixed a bug that survived three code reviews."
   }
