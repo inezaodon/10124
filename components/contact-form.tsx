@@ -34,12 +34,19 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-      <h3 className="text-lg font-semibold">Contact Me</h3>
-      <input name="name" required placeholder="Your name" className="w-full rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-950" />
-      <input type="email" name="email" required placeholder="Your email" className="w-full rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-950" />
-      <textarea name="message" required rows={4} placeholder="Your message" className="w-full rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-950" />
-      <button disabled={state === "sending"} className="rounded-lg bg-brand-600 px-4 py-2 font-medium text-white hover:bg-brand-500 disabled:opacity-60">
+    <form onSubmit={handleSubmit} className="pop-glass space-y-4 p-8">
+      <div>
+        <p className="pop-kicker">Get in touch</p>
+        <h3 className="mt-1 text-xl font-extrabold text-slate-900 dark:text-white">Contact Me</h3>
+      </div>
+      <input name="name" required placeholder="Your name" className="pop-input" />
+      <input type="email" name="email" required placeholder="Your email" className="pop-input" />
+      <textarea name="message" required rows={4} placeholder="Your message" className="pop-input resize-y" />
+      <button
+        type="submit"
+        disabled={state === "sending"}
+        className="pop-btn-primary w-full disabled:pointer-events-none disabled:opacity-60"
+      >
         {state === "sending" ? "Sending..." : "Send Message"}
       </button>
       {state === "success" && <p className="text-sm text-green-600">Message sent successfully.</p>}

@@ -31,7 +31,7 @@ export function MagneticButton({ children, href }: Props) {
         x.set(0);
         y.set(0);
       }}
-      className="inline-flex rounded-xl bg-brand-600 px-4 py-2 font-semibold text-white"
+      className="pop-btn-primary px-5 py-2.5 text-sm"
     >
       {children}
     </motion.a>

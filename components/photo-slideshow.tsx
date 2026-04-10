@@ -86,11 +86,11 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
   const active = orderedSlides[index];
 
   return (
-    <div className="space-y-3 rounded-2xl border border-slate-200 p-4 dark:border-slate-800">
-      <p className="text-xs text-slate-500 dark:text-slate-400">
+    <div className="pop-glass-soft space-y-3 border-pink-200/50 p-5 shadow-lg shadow-pink-500/5 dark:border-pink-500/20">
+      <p className="text-xs font-medium text-fuchsia-700/80 dark:text-fuchsia-300/90">
         Order shuffles on its own — thumbnails move too.
       </p>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-900">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-violet-100 to-fuchsia-100 ring-2 ring-fuchsia-200/50 dark:from-violet-950/50 dark:to-fuchsia-950/50 dark:ring-fuchsia-500/30">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={active.src}
@@ -142,7 +142,9 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
               onClick={() => setIndex(slideIndex)}
               transition={{ type: "spring", stiffness: 350, damping: 28 }}
               className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition ${
-                slideIndex === index ? "border-brand-600 ring-2 ring-brand-500/30" : "border-transparent opacity-80 hover:opacity-100"
+                slideIndex === index
+                  ? "border-fuchsia-500 ring-2 ring-fuchsia-400/40 dark:border-fuchsia-400"
+                  : "border-transparent opacity-80 hover:opacity-100"
               }`}
             >
               <Image src={slide.src} alt="" fill className="object-cover" sizes="80px" />
