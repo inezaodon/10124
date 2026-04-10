@@ -23,19 +23,22 @@ export function SiteHeader() {
           <p className="mt-2 max-w-xl text-base text-slate-600 dark:text-zinc-400">
             Building useful software, shipping consistently, and solving real problems.
           </p>
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-3">
-            <ThemeToggle />
-            <SocialLinks />
-          </div>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-800 shadow-sm md:hidden dark:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-100"
-          onClick={() => setOpen((v) => !v)}
-        >
-          ☰
-        </button>
+        <div className="flex shrink-0 flex-col items-end gap-3">
+          <button
+            aria-label="Toggle menu"
+            type="button"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-800 shadow-sm md:hidden dark:border-zinc-600 dark:bg-zinc-900 dark:text-zinc-100"
+            onClick={() => setOpen((v) => !v)}
+          >
+            ☰
+          </button>
+          <div className="flex flex-col items-end gap-3 sm:flex-row sm:items-center sm:gap-3">
+            <ThemeToggle />
+            <SocialLinks className="justify-end" />
+          </div>
+        </div>
       </div>
 
       <nav className="hidden flex-wrap gap-x-5 gap-y-2 md:flex">
