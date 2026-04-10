@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SocialLinks } from "@/components/social-links";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
@@ -22,20 +23,13 @@ export function SiteHeader() {
           <p className="mt-2 max-w-xl text-base text-slate-600 dark:text-zinc-400">
             Building useful software, shipping consistently, and solving real problems.
           </p>
+          <SocialLinks className="mt-3" />
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
           <a href="#contact" className="pop-btn-primary px-5 py-2.5 text-sm">
             Contact Me
-          </a>
-          <a
-            href="https://github.com/inezaodon"
-            target="_blank"
-            rel="noreferrer"
-            className="pop-btn-secondary px-5 py-2.5 text-sm"
-          >
-            GitHub
           </a>
         </div>
 
@@ -75,23 +69,15 @@ export function SiteHeader() {
           <div className="pt-2">
             <ThemeToggle />
           </div>
-          <div className="grid grid-cols-2 gap-2 pt-2">
-            <a
-              href="#contact"
-              className="pop-btn-primary px-3 py-2 text-center text-sm"
-              onClick={() => setOpen(false)}
-            >
-              Contact Me
-            </a>
-            <a
-              href="https://github.com/inezaodon"
-              target="_blank"
-              rel="noreferrer"
-              className="pop-btn-secondary px-3 py-2 text-center text-sm"
-              onClick={() => setOpen(false)}
-            >
-              GitHub
-            </a>
+          <a
+            href="#contact"
+            className="pop-btn-primary block px-3 py-2 text-center text-sm"
+            onClick={() => setOpen(false)}
+          >
+            Contact Me
+          </a>
+          <div className="flex justify-center pt-2">
+            <SocialLinks />
           </div>
         </nav>
       )}
