@@ -39,6 +39,97 @@ export const resumeHighlights = {
   resumePdfPath: "/resume/Odon-Ineza-Resume.pdf"
 };
 
+export type OriginStoryChapter = {
+  id: string;
+  badge: string;
+  headline: string;
+  body: string[];
+  flavor?: "meme" | "turn" | "future" | "punch";
+};
+
+/** Long-form personal narrative for the Origin Story overlay on the home page. */
+export const originStory = {
+  launchCta: "Click here if you’re interested in my journey into computer science",
+  launchHint: "How memes, Twitter, and a lot of scrolling led me here.",
+  chapters: [
+    {
+      id: "rwanda-memes",
+      badge: "🇷🇼",
+      headline: "It didn’t start with code—it started with memes.",
+      flavor: "meme",
+      body: [
+        "I’m a Rwandan guy, and my journey into computer science didn’t start with code—it started with memes.",
+        "I used to spend way too much time on Instagram, mostly because of memes. At some point, though, I thought, “There has to be more elite memes out there.”"
+      ]
+    },
+    {
+      id: "migration",
+      badge: "🧭",
+      headline: "Migrating across the internet like a meme-hunting specialist.",
+      flavor: "meme",
+      body: [
+        "That’s how I ended up on Twitter (X), then Discord, then Slack channels—basically migrating across the internet like a meme-hunting specialist."
+      ]
+    },
+    {
+      id: "karpathy",
+      badge: "👀",
+      headline: "Followed for the memes. Stayed for the ideas.",
+      flavor: "turn",
+      body: [
+        "Somewhere along the way, I came across people like Andrej Karpathy and Dwarkesh Patel. At first, I won’t lie—I followed them for the memes. But then I started actually listening to what they were saying."
+      ]
+    },
+    {
+      id: "dangerous",
+      badge: "⚠️",
+      headline: "That’s when things got dangerous.",
+      flavor: "punch",
+      body: [
+        "These guys weren’t just funny—they were talking about AI, the future, how the world is changing, and how fast everything is evolving. Suddenly, my meme feed turned into a low-key education in Machine Learning and Large Language Models.",
+        "Next thing I know, I’m a Rwandan guy who came for memes but stayed for neural networks."
+      ]
+    },
+    {
+      id: "velocity",
+      badge: "⚡",
+      headline: "The speed of the field hooked me.",
+      flavor: "turn",
+      body: [
+        "What really pulled me in was how fast everything moves. In AI, even something like prompt engineering has a lifespan of about six months before engineers improve the models so much that your “genius trick” becomes basic. That kind of rapid progress is insane—and honestly, kind of addictive to follow."
+      ]
+    },
+    {
+      id: "careers",
+      badge: "🛠️",
+      headline: "What I’m aiming at now",
+      flavor: "future",
+      body: [
+        "Now I find myself genuinely interested in careers like Machine Learning Engineering, Inference Engineering, and Systems Engineering. Not just because they’re important, but because they’re shaping the future in real time."
+      ]
+    },
+    {
+      id: "rwanda-reflect",
+      badge: "🌍",
+      headline: "Humor first. Builders second.",
+      flavor: "turn",
+      body: [
+        "It’s funny—growing up in Rwanda, I didn’t think my path into tech would come from scrolling through memes. But somehow, by following humor, I ended up following people building some of the most advanced technology in the world."
+      ]
+    },
+    {
+      id: "finale",
+      badge: "🚀",
+      headline: "Pick your ending.",
+      flavor: "future",
+      body: [
+        "So yeah, maybe in 10 years I’ll be building something impactful too. Maybe I’ll be the next Andrej Karpathy. Maybe even the next Dario Amodei.",
+        "Or maybe…I’ll just be a guy who came for the memes and accidentally stayed to help build the future."
+      ]
+    }
+  ] satisfies OriginStoryChapter[]
+};
+
 /** Optional per-file captions; all other images use rotating fallbacks from `slideshowCaptionFallbacks`. */
 export const slideshowCaptionOverrides: Record<string, string> = {
   "IMG_0061.jpg": "Proof that debugging and good vibes can coexist.",

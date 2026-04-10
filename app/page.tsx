@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/contact-form";
 import { GitHubContributions } from "@/components/github-contributions";
+import { OriginStoryLauncher } from "@/components/origin-story-overlay";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
 import { ProjectGrid } from "@/components/project-grid";
 import { SiteHeader } from "@/components/site-header";
@@ -35,16 +36,19 @@ export default async function HomePage() {
             {resumeHighlights.title}
           </h2>
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">{resumeHighlights.pitch}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={resumeHighlights.resumePdfPath} target="_blank" rel="noreferrer" className="pop-btn-primary">
-              View Resume
-            </a>
-            <a href="#gallery" className="pop-btn-secondary">
-              Open Photo Dashboard
-            </a>
-            <a href="https://github.com/inezaodon" target="_blank" rel="noreferrer" className="pop-btn-secondary">
-              Explore GitHub
-            </a>
+          <div className="mt-8 flex flex-col gap-4">
+            <OriginStoryLauncher />
+            <div className="flex flex-wrap gap-3">
+              <a href={resumeHighlights.resumePdfPath} target="_blank" rel="noreferrer" className="pop-btn-primary">
+                View Resume
+              </a>
+              <a href="#gallery" className="pop-btn-secondary">
+                Open Photo Dashboard
+              </a>
+              <a href="https://github.com/inezaodon" target="_blank" rel="noreferrer" className="pop-btn-secondary">
+                Explore GitHub
+              </a>
+            </div>
           </div>
         </div>
       </section>
