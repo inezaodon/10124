@@ -66,6 +66,3 @@ export function techIconMap(stack: Array<string | null | undefined>) {
     .map((item) => ({ label: item, iconClass: map[item] ?? "devicon-devicon-plain" }));
 }
 
-export function contributionsSvgUrl(username = GITHUB_USER) {
-  return `https://ghchart.rshah.org/${encodeURIComponent(username)}`;
-}
