@@ -49,8 +49,8 @@ export type OriginStoryChapter = {
 
 /** Long-form personal narrative for the Origin Story overlay on the home page. */
 export const originStory = {
-  launchCta: "Read the real origin story",
-  launchHint: "Memes → Twitter → neural networks. Yes, really.",
+  launchCta: "Click here if you’re interested in my journey into computer science",
+  launchHint: "How memes, Twitter, and a lot of scrolling led me here.",
   chapters: [
     {
       id: "rwanda-memes",
