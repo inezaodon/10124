@@ -47,7 +47,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["JavaScript", "HTML", "Transformer Concepts", "Model Experimentation"],
     coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1675557009875-436f2d2f8570?auto=format&fit=crop&w=1400&q=80"
+    galleryImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80"
   },
   brilliantsciences: {
     slug: "brilliantsciences",
