@@ -26,11 +26,8 @@ export function SiteHeader() {
           <SocialLinks className="mt-3" />
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 self-start md:flex">
           <ThemeToggle />
-          <a href="#contact" className="pop-btn-primary px-5 py-2.5 text-sm">
-            Contact Me
-          </a>
         </div>
 
         <button
@@ -68,16 +65,6 @@ export function SiteHeader() {
           ))}
           <div className="pt-2">
             <ThemeToggle />
-          </div>
-          <a
-            href="#contact"
-            className="pop-btn-primary block px-3 py-2 text-center text-sm"
-            onClick={() => setOpen(false)}
-          >
-            Contact Me
-          </a>
-          <div className="flex justify-center pt-2">
-            <SocialLinks />
           </div>
         </nav>
       )}
