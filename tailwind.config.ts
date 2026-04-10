@@ -14,8 +14,7 @@ export default {
         }
       },
       boxShadow: {
-        pop: "0 12px 40px -12px rgba(139, 92, 246, 0.35)",
-        "pop-pink": "0 12px 40px -12px rgba(236, 72, 153, 0.3)"
+        pop: "0 12px 40px -12px rgba(13, 148, 136, 0.2)"
       }
     }
   },

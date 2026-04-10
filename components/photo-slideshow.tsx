@@ -38,6 +38,7 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
   const [orderedSlides, setOrderedSlides] = useState<Slide[]>([]);
   const [index, setIndex] = useState(0);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const stripRef = useRef<HTMLDivElement | null>(null);
   const sigRef = useRef("");
 
   const incoming = useMemo(() => (slides.length ? slides : []), [slides]);
@@ -77,8 +78,24 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
     return () => window.clearInterval(timer);
   }, [intervalMs, orderedSlides.length]);
 
+  /** Scroll only the thumbnail strip horizontally — never scrollIntoView (that pulls the whole page). */
   useEffect(() => {
-    thumbRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const strip = stripRef.current;
+    const thumb = thumbRefs.current[index];
+    if (!strip || !thumb) return;
+
+    const align = () => {
+      const s = stripRef.current;
+      const t = thumbRefs.current[index];
+      if (!s || !t) return;
+      const stripRect = s.getBoundingClientRect();
+      const thumbRect = t.getBoundingClientRect();
+      const thumbCenter = thumbRect.left + thumbRect.width / 2;
+      const stripCenter = stripRect.left + stripRect.width / 2;
+      s.scrollBy({ left: thumbCenter - stripCenter, behavior: "auto" });
+    };
+
+    requestAnimationFrame(align);
   }, [index]);
 
   if (!orderedSlides.length) return null;
@@ -86,11 +103,11 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
   const active = orderedSlides[index];
 
   return (
-    <div className="pop-glass-soft space-y-3 border-pink-200/50 p-5 shadow-lg shadow-pink-500/5 dark:border-pink-500/20">
-      <p className="text-xs font-medium text-fuchsia-700/80 dark:text-fuchsia-300/90">
+    <div className="pop-glass-soft space-y-3 p-5">
+      <p className="text-xs font-medium text-slate-500 dark:text-zinc-500">
         Order shuffles on its own — thumbnails move too.
       </p>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-violet-100 to-fuchsia-100 ring-2 ring-fuchsia-200/50 dark:from-violet-950/50 dark:to-fuchsia-950/50 dark:ring-fuchsia-500/30">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 ring-1 ring-slate-300/80 dark:bg-zinc-800 dark:ring-zinc-600">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={active.src}
@@ -128,7 +145,7 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
       <p className="text-sm text-slate-600 dark:text-slate-300">{active.caption}</p>
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">All photos — order reshuffles</p>
-        <motion.div layout className="-mx-1 flex gap-2 overflow-x-auto pb-1 pt-0.5">
+        <div ref={stripRef} className="-mx-1 flex gap-2 overflow-x-auto overflow-y-hidden pb-1 pt-0.5 [overflow-anchor:none]">
           {orderedSlides.map((slide, slideIndex) => (
             <motion.button
               layout
@@ -143,14 +160,14 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
               transition={{ type: "spring", stiffness: 350, damping: 28 }}
               className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition ${
                 slideIndex === index
-                  ? "border-fuchsia-500 ring-2 ring-fuchsia-400/40 dark:border-fuchsia-400"
+                  ? "border-teal-600 ring-2 ring-teal-500/30 dark:border-teal-400 dark:ring-teal-400/25"
                   : "border-transparent opacity-80 hover:opacity-100"
               }`}
             >
               <Image src={slide.src} alt="" fill className="object-cover" sizes="80px" />
             </motion.button>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="pop-glass space-y-4 p-8">
       <div>
         <p className="pop-kicker">Get in touch</p>
-        <h3 className="mt-1 text-xl font-extrabold text-slate-900 dark:text-white">Contact Me</h3>
+        <h3 className="mt-1 text-xl font-extrabold text-slate-900 dark:text-zinc-50">Contact Me</h3>
       </div>
       <input name="name" required placeholder="Your name" className="pop-input" />
       <input type="email" name="email" required placeholder="Your email" className="pop-input" />
