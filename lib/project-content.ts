@@ -13,7 +13,7 @@ export type ProjectContent = {
 export const projectContentMap: Record<string, ProjectContent> = {
   "10124": {
     slug: "10124",
-    title: "Super Dynamic Portfolio",
+    title: "Portfolio",
     tagline: "A recruiter-first portfolio experience with live signals.",
     shortSummary: "Next.js portfolio with live API integrations, project storytelling, and contact workflows.",
     fullDescription: [
@@ -32,7 +32,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
   },
   "nanochat-replica": {
     slug: "nanochat-replica",
-    title: "NanoChat Replica",
+    title: "Nanochat",
     tagline: "A tiny LLM playground focused on core transformer concepts.",
     shortSummary: "Educational GPT-style project to understand tokenization, embeddings, and model behavior in-browser.",
     fullDescription: [
@@ -70,7 +70,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
   },
   PRINCOMP_FINAL_PREOJECT: {
     slug: "PRINCOMP_FINAL_PREOJECT",
-    title: "NYC Taxi Analytics",
+    title: "NYC Taxi Plots",
     tagline: "Data storytelling through interactive mobility visualizations.",
     shortSummary: "Visualization-focused analytics project using multi-page Plotly dashboards for taxi data.",
     fullDescription: [
@@ -89,7 +89,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
   },
   inezaodon: {
     slug: "inezaodon",
-    title: "GitHub Profile Config",
+    title: "GitHub Profile",
     tagline: "Personal brand and developer identity hub.",
     shortSummary: "Profile repository used to communicate skills, interests, and collaboration direction.",
     fullDescription: [

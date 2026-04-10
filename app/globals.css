@@ -17,7 +17,7 @@ body {
   background-image: radial-gradient(ellipse 120% 80% at 100% 0%, rgba(45, 212, 191, 0.06), transparent 50%);
 }
 
-/* Dark: deep zinc, subtle warmth — avoids “AI purple” glows */
+/* Dark: deep zinc, subtle warmth (no purple AI-slop glows) */
 .dark body {
   @apply text-zinc-100;
   background-color: #0c0d10;

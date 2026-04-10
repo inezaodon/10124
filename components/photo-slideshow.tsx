@@ -78,7 +78,7 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
     return () => window.clearInterval(timer);
   }, [intervalMs, orderedSlides.length]);
 
-  /** Scroll only the thumbnail strip horizontally — never scrollIntoView (that pulls the whole page). */
+  /** Scroll only the thumbnail strip horizontally; never scrollIntoView (that pulls the whole page). */
   useEffect(() => {
     const strip = stripRef.current;
     const thumb = thumbRefs.current[index];
@@ -105,7 +105,7 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
   return (
     <div className="pop-glass-soft space-y-3 p-5">
       <p className="text-xs font-medium text-slate-500 dark:text-zinc-500">
-        Order shuffles on its own — thumbnails move too.
+        Order shuffles on its own; thumbnails move too.
       </p>
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 ring-1 ring-slate-300/80 dark:bg-zinc-800 dark:ring-zinc-600">
         <AnimatePresence mode="wait" initial={false}>
@@ -144,7 +144,7 @@ export function PhotoSlideshow({ slides, intervalMs = 4000, shuffleReorderMs = 1
       </div>
       <p className="text-sm text-slate-600 dark:text-slate-300">{active.caption}</p>
       <div>
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">All photos — order reshuffles</p>
+        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-500">All photos (order reshuffles)</p>
         <div ref={stripRef} className="-mx-1 flex gap-2 overflow-x-auto overflow-y-hidden pb-1 pt-0.5 [overflow-anchor:none]">
           {orderedSlides.map((slide, slideIndex) => (
             <motion.button
