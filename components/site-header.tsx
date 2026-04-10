@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { MagneticButton } from "@/components/magnetic-button";
 
 const links = [
   { href: "#projects", label: "Projects" },
@@ -27,7 +26,17 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <MagneticButton href="https://github.com/inezaodon">Hire / Collaborate</MagneticButton>
+          <a href="#contact" className="pop-btn-primary px-5 py-2.5 text-sm">
+            Contact Me
+          </a>
+          <a
+            href="https://github.com/inezaodon"
+            target="_blank"
+            rel="noreferrer"
+            className="pop-btn-secondary px-5 py-2.5 text-sm"
+          >
+            GitHub
+          </a>
         </div>
 
         <button
@@ -65,6 +74,24 @@ export function SiteHeader() {
           ))}
           <div className="pt-2">
             <ThemeToggle />
+          </div>
+          <div className="grid grid-cols-2 gap-2 pt-2">
+            <a
+              href="#contact"
+              className="pop-btn-primary px-3 py-2 text-center text-sm"
+              onClick={() => setOpen(false)}
+            >
+              Contact Me
+            </a>
+            <a
+              href="https://github.com/inezaodon"
+              target="_blank"
+              rel="noreferrer"
+              className="pop-btn-secondary px-3 py-2 text-center text-sm"
+              onClick={() => setOpen(false)}
+            >
+              GitHub
+            </a>
           </div>
         </nav>
       )}

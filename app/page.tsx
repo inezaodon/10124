@@ -208,9 +208,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div id="contact">
+      <section id="contact" className="scroll-mt-8 pt-4">
         <ContactForm />
-      </div>
+      </section>
     </main>
   );
 }

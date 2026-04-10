@@ -4,14 +4,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { originStory } from "@/lib/content";
 
-const flavorStyles: Record<NonNullable<(typeof originStory.chapters)[0]["flavor"]>, string> = {
-  meme: "border-amber-400/50 bg-white/55 dark:border-amber-400/35 dark:bg-zinc-900/45",
-  turn: "border-teal-400/50 bg-white/55 dark:border-teal-400/35 dark:bg-zinc-900/45",
-  future: "border-violet-400/45 bg-white/55 dark:border-violet-400/30 dark:bg-zinc-900/45",
-  punch: "border-rose-400/50 bg-white/60 dark:border-rose-400/40 dark:bg-zinc-900/50"
-};
-
-
 export function OriginStoryLauncher() {
   const [open, setOpen] = useState(false);
   const titleId = useId();
@@ -28,17 +20,9 @@ export function OriginStoryLauncher() {
 
   useEffect(() => {
     if (!open) return;
-    onScroll();
+    // Schedule initial progress update to avoid setState-in-effect lint.
+    requestAnimationFrame(() => onScroll());
   }, [open, onScroll]);
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -59,12 +43,6 @@ export function OriginStoryLauncher() {
         aria-expanded={open}
         aria-controls={open ? titleId : undefined}
       >
-        <span
-          className="pointer-events-none absolute -right-8 -top-8 text-7xl opacity-[0.12] transition group-hover:rotate-12 group-hover:opacity-20"
-          aria-hidden
-        >
-          🧠
-        </span>
         <span className="text-xs font-bold uppercase tracking-widest text-teal-700 dark:text-teal-400">Personal story</span>
         <span className="relative text-base font-bold leading-snug text-slate-900 dark:text-zinc-50 sm:text-lg">
           {originStory.launchCta}
@@ -90,7 +68,6 @@ export function OriginStoryLauncher() {
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.2 }}
           >
-            {/* Frosted full-screen layer: main page stays visible behind the blur */}
             <motion.div
               className="flex h-full min-h-0 w-full flex-col border border-white/25 bg-white/45 shadow-2xl backdrop-blur-lg dark:border-zinc-600/35 dark:bg-zinc-950/40"
               initial={reduceMotion ? false : { opacity: 0.92 }}
@@ -113,8 +90,8 @@ export function OriginStoryLauncher() {
                   <p id={titleId} className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-teal-700 dark:text-teal-400 sm:text-xs">
                     My path into CS
                   </p>
-                  <p className="hidden truncate text-xs text-slate-600 dark:text-zinc-400 sm:block">
-                    Rwanda → memes → ML (you can still see the portfolio behind this panel)
+                  <p className="hidden text-xs leading-snug text-slate-600 dark:text-zinc-400 sm:block">
+                    One continuous essay. The page behind stays visible through the glass.
                   </p>
                 </div>
               </header>
@@ -129,45 +106,26 @@ export function OriginStoryLauncher() {
               <div
                 ref={scrollRef}
                 onScroll={onScroll}
-                className="relative z-10 min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-6 sm:px-8 sm:py-8"
+                className="relative z-10 min-h-0 flex-1 touch-pan-y overflow-y-auto overflow-x-hidden px-4 py-6 pb-[max(3rem,env(safe-area-inset-bottom,0px))] sm:px-8 sm:py-8 sm:pb-[max(4rem,env(safe-area-inset-bottom,0px))]"
               >
                 <p className="mb-8 font-mono text-xs uppercase tracking-widest text-slate-500 dark:text-zinc-500">
-                  Scroll to read — then use Back to return to the homepage.
+                  Scroll to read. Use Back when you are done.
                 </p>
 
-                <div className="mx-auto max-w-2xl space-y-10 pb-12">
-                  {originStory.chapters.map((chapter, i) => (
-                    <motion.article
-                      key={chapter.id}
-                      className={`relative rounded-2xl border p-5 shadow-sm backdrop-blur-sm sm:p-6 ${
-                        chapter.flavor ? flavorStyles[chapter.flavor] : "border-slate-200/80 bg-white/50 dark:border-zinc-700/60 dark:bg-zinc-900/40"
-                      }`}
-                      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-                      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.3) }}
-                    >
-                      <div className="mb-3 flex flex-wrap items-center gap-2">
-                        <span className="text-2xl" aria-hidden>
-                          {chapter.badge}
-                        </span>
-                        <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-slate-500 dark:text-zinc-500">
-                          Segment {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-extrabold leading-snug text-slate-900 dark:text-white sm:text-xl">
-                        {chapter.headline}
-                      </h3>
-                      <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-slate-700 dark:text-zinc-300">
-                        {chapter.body.map((p, j) => (
-                          <p key={`${chapter.id}-${j}`}>{p}</p>
-                        ))}
-                      </div>
-                    </motion.article>
-                  ))}
-                </div>
+                <motion.article
+                  className="mx-auto max-w-2xl rounded-2xl border border-slate-200/80 bg-white/50 p-6 pb-8 shadow-sm backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/40 sm:p-8 sm:pb-10"
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <div className="space-y-5 pb-2 text-[15px] leading-[1.75] text-slate-800 dark:text-zinc-200">
+                    {originStory.paragraphs.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                </motion.article>
 
-                <div className="mx-auto mb-8 max-w-2xl rounded-2xl border border-dashed border-slate-300/90 bg-white/45 p-5 text-center backdrop-blur-sm dark:border-zinc-600 dark:bg-zinc-900/40">
+                <div className="mx-auto mb-0 mt-12 max-w-2xl rounded-2xl border border-dashed border-slate-300/90 bg-white/45 p-5 text-center backdrop-blur-sm dark:border-zinc-600 dark:bg-zinc-900/40">
                   <p className="font-mono text-xs text-slate-500 dark:text-zinc-500">End of story</p>
                   <button
                     type="button"
@@ -179,7 +137,6 @@ export function OriginStoryLauncher() {
                 </div>
               </div>
             </motion.div>
-
           </motion.div>
         )}
       </AnimatePresence>
