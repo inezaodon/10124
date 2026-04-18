@@ -83,6 +83,17 @@ export function ProjectGrid({ projects }: Props) {
                     <span>Updated: {new Date(project.updated_at).toLocaleDateString()}</span>
                     <span>Last push: {formatRelativeTime(project.pushed_at)}</span>
                   </div>
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                    <span
+                      className={
+                        liveUrl
+                          ? "rounded-full bg-emerald-100 px-2.5 py-1 font-semibold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300"
+                          : "rounded-full bg-amber-100 px-2.5 py-1 font-semibold text-amber-900 dark:bg-amber-900/40 dark:text-amber-300"
+                      }
+                    >
+                      {liveUrl ? "Live deployed" : "No deployment URL yet"}
+                    </span>
+                  </div>
                   <div className="flex items-center gap-3 pt-1 text-sm">
                     <span className="font-semibold text-teal-700 dark:text-teal-400">View project</span>
                     <span className="text-slate-400" aria-hidden>
