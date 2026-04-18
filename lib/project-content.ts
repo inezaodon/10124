@@ -8,6 +8,7 @@ export type ProjectContent = {
   stack: string[];
   coverImage: string;
   galleryImage: string;
+  liveDeployUrl?: string;
 };
 
 export const projectContentMap: Record<string, ProjectContent> = {
@@ -28,7 +29,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
+    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
+    liveDeployUrl: "https://portlanding.vercel.app"
   },
   "nanochat-replica": {
     slug: "nanochat-replica",

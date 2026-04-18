@@ -45,8 +45,11 @@ export function ProjectGrid({ projects }: Props) {
       />
       <motion.div layout className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:gap-10">
         {filtered.map((project, idx) => {
-          const title = projectContentMap[project.name]?.title ?? project.name;
-          const liveUrl = project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null;
+          const content = projectContentMap[project.name];
+          const title = content?.title ?? project.name;
+          const liveUrl =
+            content?.liveDeployUrl ??
+            (project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null);
           const commitsUrl = `${project.html_url}/commits`;
           return (
             <motion.article

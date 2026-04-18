@@ -8,6 +8,7 @@ When a new GitHub repo appears on the home page, the **card image** and **projec
 2. **`coverImage`** — wide image used on the home grid (cropped in a short banner). Prefer strong subject + readable contrast.
 3. **`galleryImage`** — second image on `/projects/[repo]` (supporting visual). Can be more abstract or detail-oriented.
 4. If a repo is **missing** from `projectContentMap`, the UI falls back to `fallbackProjectContent` in the same file (generic image + copy).
+5. Use optional `liveDeployUrl` in `projectContentMap` when a project needs a fixed deployment link that should override GitHub `homepage`.
 
 ## How to pick images (for future updates)
 
@@ -17,15 +18,15 @@ When a new GitHub repo appears on the home page, the **card image** and **projec
 
 ## Repo → image notes
 
-| GitHub repo              | Image intent                         | coverImage query / theme              | galleryImage query / theme        |
-| ------------------------ | ------------------------------------ | ------------------------------------- | --------------------------------- |
-| `sketching_with_fouriers` | Waves + digital / matrix (gallery)     | `https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80` | `https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80` |
+| GitHub repo               | Image intent                     | coverImage query / theme                                                                 | galleryImage query / theme                                                                | liveDeployUrl override              |
+| ------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------- |
+| `sketching_with_fouriers` | Waves + digital / matrix         | `https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80` | `https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80` | —                                   |
+| `10124`                   | Code / laptop workspace          | (existing) dev desk                                                                       | (existing) circuits / hardware                                                             | `https://portlanding.vercel.app`    |
+| `nanochat-replica`        | AI / neural                      | (existing) abstract AI                                                                    | (existing) network / chips                                                                 | —                                   |
+| `brilliantsciences`       | Classroom / learning             | (existing) students                                                                       | (existing) teaching                                                                        | —                                   |
+| `PRINCOMP_FINAL_PREOJECT` | City / mobility data             | (existing) skyline                                                                        | (existing) traffic / city night                                                            | —                                   |
+| `inezaodon`               | GitHub / code identity           | (existing) code editor vibe                                                               | (existing) terminal / code                                                                 | —                                   |
 
-Always verify new URLs return **HTTP 200** (Unsplash occasionally returns **404** for mistyped or removed photo IDs).
-| `10124`                  | Code / laptop workspace              | (existing) dev desk                   | (existing) circuits / hardware    |
-| `nanochat-replica`       | AI / neural                          | (existing) abstract AI                | (existing) network / chips        |
-| `brilliantsciences`      | Classroom / learning                 | (existing) students                   | (existing) teaching               |
-| `PRINCOMP_FINAL_PREOJECT` | City / mobility data                 | (existing) skyline                    | (existing) traffic / city night   |
-| `inezaodon`              | GitHub / code identity               | (existing) code editor vibe           | (existing) terminal / code        |
+Always verify new image URLs return **HTTP 200** (Unsplash occasionally returns **404** for mistyped or removed photo IDs).
 
 When you add a row, paste the **full Unsplash URL** you committed in `projectContentMap` so searches stay reproducible.
