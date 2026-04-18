@@ -50,6 +50,8 @@ export default async function ProjectPage({ params }: Props) {
     );
   }
 
+  const liveUrl = project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null;
+
   return (
     <main className="relative mx-auto max-w-6xl space-y-10 px-6 py-10">
       <Link
