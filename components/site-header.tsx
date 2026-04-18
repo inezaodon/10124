@@ -5,6 +5,7 @@ import { SocialLinks } from "@/components/social-links";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
+  { href: "#github-profile", label: "GitHub intro" },
   { href: "#projects", label: "Projects" },
   { href: "#resume", label: "Resume" },
   { href: "#gallery", label: "Gallery" },

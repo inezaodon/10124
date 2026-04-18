@@ -21,6 +21,20 @@ export function ProjectGrid({ projects }: Props) {
     });
   }, [projects, query]);
 
+  const formatRelativeTime = (iso: string) => {
+    const ms = Date.now() - new Date(iso).getTime();
+    const minutes = Math.max(1, Math.floor(ms / (1000 * 60)));
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days}d ago`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months}mo ago`;
+    const years = Math.floor(months / 12);
+    return `${years}y ago`;
+  };
+
   return (
     <section className="space-y-6">
       <input
@@ -32,6 +46,8 @@ export function ProjectGrid({ projects }: Props) {
       <motion.div layout className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {filtered.map((project, idx) => {
           const title = projectContentMap[project.name]?.title ?? project.name;
+          const liveUrl = project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null;
+          const commitsUrl = `${project.html_url}/commits`;
           return (
             <motion.article
               layout
@@ -65,6 +81,7 @@ export function ProjectGrid({ projects }: Props) {
                     <span>Stars: {project.stargazers_count}</span>
                     <span>Forks: {project.forks_count}</span>
                     <span>Updated: {new Date(project.updated_at).toLocaleDateString()}</span>
+                    <span>Last push: {formatRelativeTime(project.pushed_at)}</span>
                   </div>
                   <div className="flex items-center gap-3 pt-1 text-sm">
                     <span className="font-semibold text-teal-700 dark:text-teal-400">View project</span>
@@ -79,6 +96,26 @@ export function ProjectGrid({ projects }: Props) {
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub
+                    </a>
+                    {liveUrl ? (
+                      <a
+                        href={liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pointer-events-auto relative z-20 rounded font-medium text-slate-600 underline-offset-2 transition hover:text-teal-700 hover:underline dark:text-slate-400 dark:hover:text-teal-400"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Live App
+                      </a>
+                    ) : null}
+                    <a
+                      href={commitsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pointer-events-auto relative z-20 rounded font-medium text-slate-600 underline-offset-2 transition hover:text-teal-700 hover:underline dark:text-slate-400 dark:hover:text-teal-400"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Recent changes
                     </a>
                   </div>
                 </div>

@@ -20,7 +20,9 @@ async function getRepo(repo: string) {
     stargazers_count: number;
     forks_count: number;
     updated_at: string;
+    pushed_at: string;
     language: string | null;
+    homepage: string | null;
   }>;
 }
 
@@ -28,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { repo } = await params;
   const project = await getRepo(repo);
   const content = projectContentMap[repo];
+  const liveUrl = project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null;
 
   return {
     title: content?.title ?? (project ? `${project.name} | Project Details` : "Project Not Found"),
@@ -70,10 +73,18 @@ export default async function ProjectPage({ params }: Props) {
             <span>Stars: {project.stargazers_count}</span>
             <span>Forks: {project.forks_count}</span>
             <span>Updated: {new Date(project.updated_at).toLocaleDateString()}</span>
+            <span>Last push: {new Date(project.pushed_at).toLocaleDateString()}</span>
           </div>
-          <a href={project.html_url} className="pop-btn-primary" target="_blank" rel="noreferrer">
-            View Source on GitHub
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a href={project.html_url} className="pop-btn-primary" target="_blank" rel="noreferrer">
+              View Source on GitHub
+            </a>
+            {liveUrl ? (
+              <a href={liveUrl} className="pop-btn-secondary" target="_blank" rel="noreferrer">
+                Open Live Deployment
+              </a>
+            ) : null}
+          </div>
         </div>
 
         <div className="relative h-72 overflow-hidden rounded-3xl border border-slate-200 shadow-lg shadow-slate-900/10 dark:border-zinc-700 dark:shadow-black/30">
