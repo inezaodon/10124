@@ -19,7 +19,9 @@ When a new GitHub repo appears on the home page, the **card image** and **projec
 
 | GitHub repo              | Image intent                         | coverImage query / theme              | galleryImage query / theme        |
 | ------------------------ | ------------------------------------ | ------------------------------------- | --------------------------------- |
-| `sketching_with_fouriers` | Waves / harmonics + math workspace   | `https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80` | `https://images.unsplash.com/photo-1509228468518-180dd486e4b0?auto=format&fit=crop&w=1400&q=80` |
+| `sketching_with_fouriers` | Waves + digital / matrix (gallery)     | `https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80` | `https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80` |
+
+Always verify new URLs return **HTTP 200** (Unsplash occasionally returns **404** for mistyped or removed photo IDs).
 | `10124`                  | Code / laptop workspace              | (existing) dev desk                   | (existing) circuits / hardware    |
 | `nanochat-replica`       | AI / neural                          | (existing) abstract AI                | (existing) network / chips        |
 | `brilliantsciences`      | Classroom / learning                 | (existing) students                   | (existing) teaching               |

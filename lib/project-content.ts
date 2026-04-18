@@ -107,7 +107,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
     coverImage:
       "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
     galleryImage:
-      "https://images.unsplash.com/photo-1509228468518-180dd486e4b0?auto=format&fit=crop&w=1400&q=80"
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80"
   },
   inezaodon: {
     slug: "inezaodon",
