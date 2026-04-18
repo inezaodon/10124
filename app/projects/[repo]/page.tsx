@@ -30,7 +30,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { repo } = await params;
   const project = await getRepo(repo);
   const content = projectContentMap[repo];
-  const liveUrl = project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null;
 
   return {
     title: content?.title ?? (project ? `${project.name} | Project Details` : "Project Not Found"),
