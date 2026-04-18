@@ -7,6 +7,10 @@ export type Project = {
   stargazers_count: number;
   forks_count: number;
   updated_at: string;
+  pushed_at: string;
+  homepage: string | null;
+  fork: boolean;
+  archived: boolean;
   topics?: string[];
 };
 
@@ -29,10 +33,13 @@ async function fetchJson<T>(url: string, revalidateSeconds = 300): Promise<T> {
 
 export async function getGitHubProjects(): Promise<Project[]> {
   const repos = await fetchJson<Project[]>(
-    `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`
+    `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`
   );
 
-  return repos.filter((repo) => !repo.name.toLowerCase().includes("config"));
+  return repos
+    .filter((repo) => !repo.name.toLowerCase().includes("config"))
+    .filter((repo) => !repo.archived)
+    .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
 }
 
 export async function getDiscordPresence() {
