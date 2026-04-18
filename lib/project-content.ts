@@ -8,6 +8,7 @@ export type ProjectContent = {
   stack: string[];
   coverImage: string;
   galleryImage: string;
+  liveDeployUrl?: string;
 };
 
 export const projectContentMap: Record<string, ProjectContent> = {
@@ -87,6 +88,28 @@ export const projectContentMap: Record<string, ProjectContent> = {
     coverImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80",
     galleryImage: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1400&q=80"
   },
+  sketching_with_fouriers: {
+    slug: "sketching_with_fouriers",
+    title: "Sketching with Fouriers",
+    tagline: "Tracing curves with rotating vectors and complex Fourier series.",
+    shortSummary:
+      "Interactive visualization of how epicycles and Fourier coefficients reconstruct images and paths from simpler rotating components.",
+    fullDescription: [
+      "This project explores the geometry behind Fourier synthesis: many small rotating vectors can combine to trace surprisingly intricate shapes, including portraits and custom paths.",
+      "The focus is intuition first: seeing phase and amplitude changes reflected in motion makes the mathematics feel concrete rather than abstract.",
+      "It doubles as a playground for tuning series depth, comparing reconstruction error, and appreciating how much signal lives in the first few harmonics."
+    ],
+    highlights: [
+      "Epicycle / rotating-vector mental model for complex Fourier series.",
+      "Visual feedback loop between coefficients and the traced curve.",
+      "Great bridge between linear algebra, complex numbers, and creative coding."
+    ],
+    stack: ["JavaScript", "Canvas or SVG", "Signal processing", "Visualization"],
+    coverImage:
+      "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
+    galleryImage:
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80"
+  },
   inezaodon: {
     slug: "inezaodon",
     title: "GitHub Profile",
@@ -104,7 +127,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["Markdown", "GitHub Profile", "Technical Branding"],
     coverImage: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80"
+    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80",
+    liveDeployUrl: "https://portlanding.vercel.app"
   }
 };
 

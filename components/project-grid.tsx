@@ -21,17 +21,36 @@ export function ProjectGrid({ projects }: Props) {
     });
   }, [projects, query]);
 
+  const formatRelativeTime = (iso: string) => {
+    const ms = Date.now() - new Date(iso).getTime();
+    const minutes = Math.max(1, Math.floor(ms / (1000 * 60)));
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days}d ago`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months}mo ago`;
+    const years = Math.floor(months / 12);
+    return `${years}y ago`;
+  };
+
   return (
-    <section className="space-y-6">
+    <section className="space-y-8">
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search projects and stack..."
         className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3.5 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-600 dark:bg-zinc-950 dark:focus:border-teal-500"
       />
-      <motion.div layout className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <motion.div layout className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:gap-10">
         {filtered.map((project, idx) => {
-          const title = projectContentMap[project.name]?.title ?? project.name;
+          const content = projectContentMap[project.name];
+          const title = content?.title ?? project.name;
+          const liveUrl =
+            content?.liveDeployUrl ??
+            (project.homepage && /^https?:\/\//.test(project.homepage) ? project.homepage : null);
+          const commitsUrl = `${project.html_url}/commits`;
           return (
             <motion.article
               layout
@@ -41,30 +60,42 @@ export function ProjectGrid({ projects }: Props) {
               transition={{ delay: idx * 0.04 }}
               className="group relative isolate"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md shadow-slate-900/5 transition-all duration-300 ease-out will-change-transform group-hover:z-20 group-hover:-translate-y-1 group-hover:scale-[1.03] group-hover:border-slate-300 group-hover:shadow-2xl dark:border-zinc-700 dark:bg-zinc-900 dark:group-hover:border-zinc-600 dark:group-hover:shadow-black/40">
+              <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-md shadow-slate-900/5 transition-all duration-300 ease-out will-change-transform group-hover:z-20 group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:border-slate-300 group-hover:shadow-2xl dark:border-zinc-700 dark:bg-zinc-900 dark:group-hover:border-zinc-600 dark:group-hover:shadow-black/40">
                 <Link
                   href={`/projects/${project.name}`}
-                  className="absolute inset-0 z-10 rounded-2xl outline-none ring-offset-2 ring-offset-white focus-visible:ring-2 focus-visible:ring-teal-500 dark:ring-offset-zinc-900"
+                  className="absolute inset-0 z-10 rounded-3xl outline-none ring-offset-2 ring-offset-white focus-visible:ring-2 focus-visible:ring-teal-500 dark:ring-offset-zinc-900"
                   aria-label={`Open ${title} project page`}
                 />
-                <div className="pointer-events-none relative z-0 h-44 w-full">
+                <div className="pointer-events-none relative z-0 h-52 w-full md:h-56">
                   <Image
                     src={projectContentMap[project.name]?.coverImage ?? fallbackProjectContent.coverImage}
                     alt={`${title} preview`}
                     fill
                     className="object-cover"
-                    sizes="(min-width: 1024px) 360px, (min-width: 768px) 48vw, 100vw"
+                    sizes="(min-width: 768px) 45vw, 100vw"
                   />
                 </div>
-                <div className="pointer-events-none space-y-3 p-5">
-                  <p className="text-lg font-semibold text-slate-900 dark:text-zinc-100">{title}</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
+                <div className="pointer-events-none space-y-4 p-6 md:p-7">
+                  <p className="text-xl font-semibold text-slate-900 dark:text-zinc-100">{title}</p>
+                  <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300 md:text-base">
                     {projectContentMap[project.name]?.shortSummary ?? project.description ?? fallbackProjectContent.shortSummary}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs text-slate-500">
                     <span>Stars: {project.stargazers_count}</span>
                     <span>Forks: {project.forks_count}</span>
                     <span>Updated: {new Date(project.updated_at).toLocaleDateString()}</span>
+                    <span>Last push: {formatRelativeTime(project.pushed_at)}</span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                    <span
+                      className={
+                        liveUrl
+                          ? "rounded-full bg-emerald-100 px-2.5 py-1 font-semibold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300"
+                          : "rounded-full bg-amber-100 px-2.5 py-1 font-semibold text-amber-900 dark:bg-amber-900/40 dark:text-amber-300"
+                      }
+                    >
+                      {liveUrl ? "Live deployed" : "No deployment URL yet"}
+                    </span>
                   </div>
                   <div className="flex items-center gap-3 pt-1 text-sm">
                     <span className="font-semibold text-teal-700 dark:text-teal-400">View project</span>
@@ -79,6 +110,26 @@ export function ProjectGrid({ projects }: Props) {
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub
+                    </a>
+                    {liveUrl ? (
+                      <a
+                        href={liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pointer-events-auto relative z-20 rounded font-medium text-slate-600 underline-offset-2 transition hover:text-teal-700 hover:underline dark:text-slate-400 dark:hover:text-teal-400"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Live App
+                      </a>
+                    ) : null}
+                    <a
+                      href={commitsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pointer-events-auto relative z-20 rounded font-medium text-slate-600 underline-offset-2 transition hover:text-teal-700 hover:underline dark:text-slate-400 dark:hover:text-teal-400"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Recent changes
                     </a>
                   </div>
                 </div>
