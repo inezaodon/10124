@@ -29,8 +29,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
-    liveDeployUrl: "https://portlanding.vercel.app"
+    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
   },
   "nanochat-replica": {
     slug: "nanochat-replica",
@@ -128,7 +127,8 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["Markdown", "GitHub Profile", "Technical Branding"],
     coverImage: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80"
+    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80",
+    liveDeployUrl: "https://portlanding.vercel.app"
   }
 };
 
