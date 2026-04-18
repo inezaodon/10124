@@ -1,5 +1,4 @@
 import { ContactForm } from "@/components/contact-form";
-import { GitHubProfileSection } from "@/components/github-profile-section";
 import { GitHubContributions } from "@/components/github-contributions";
 import { OriginStoryLauncher } from "@/components/origin-story-overlay";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
@@ -25,8 +24,6 @@ export default async function HomePage() {
   return (
     <main className="relative mx-auto max-w-6xl space-y-14 px-6 py-10">
       <SiteHeader />
-
-      <GitHubProfileSection />
 
       <section className="pop-glass relative overflow-hidden p-8 md:p-10">
         <div
