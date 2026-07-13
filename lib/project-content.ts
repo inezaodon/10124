@@ -12,6 +12,26 @@ export type ProjectContent = {
 };
 
 export const projectContentMap: Record<string, ProjectContent> = {
+  "tumor-classification": {
+    slug: "tumor-classification",
+    title: "Tumor Classification",
+    tagline: "Machine learning pipeline for classifying tumor types from data.",
+    shortSummary: "Jupyter-based ML project with a live Streamlit app for exploring tumor classification results.",
+    fullDescription: [
+      "This project applies machine learning to tumor classification, turning raw data into predictions that can support analysis and decision-making.",
+      "The workflow covers data preparation, model training, and evaluation, with emphasis on making results accessible through an interactive interface.",
+      "A deployed Streamlit app lets users explore the classifier without running notebooks locally."
+    ],
+    highlights: [
+      "End-to-end ML workflow from data to deployed inference UI.",
+      "Interactive Streamlit deployment for hands-on exploration.",
+      "Structured for reproducible experimentation in Jupyter."
+    ],
+    stack: ["Python", "Jupyter Notebook", "Streamlit", "Machine Learning"],
+    coverImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=80",
+    liveDeployUrl: "https://tumor-classification-g2msv3xmrgdva6ssnvecxp.streamlit.app"
+  },
   "nanochat-replica": {
     slug: "nanochat-replica",
     title: "Nanochat",
