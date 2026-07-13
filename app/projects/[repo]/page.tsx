@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isExcludedPortfolioRepo } from "@/lib/portfolio-config";
 import { projectContentMap } from "@/lib/project-content";
 
 type Props = { params: Promise<{ repo: string }> };
@@ -28,6 +30,9 @@ async function getRepo(repo: string) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { repo } = await params;
+  if (isExcludedPortfolioRepo(repo)) {
+    return { title: "Project Not Found" };
+  }
   const project = await getRepo(repo);
   const content = projectContentMap[repo];
 
@@ -39,6 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const { repo } = await params;
+  if (isExcludedPortfolioRepo(repo)) {
+    notFound();
+  }
   const project = await getRepo(repo);
   const content = projectContentMap[repo];
 

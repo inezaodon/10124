@@ -12,25 +12,6 @@ export type ProjectContent = {
 };
 
 export const projectContentMap: Record<string, ProjectContent> = {
-  "10124": {
-    slug: "10124",
-    title: "Portfolio",
-    tagline: "A recruiter-first portfolio experience with live signals.",
-    shortSummary: "Next.js portfolio with live API integrations, project storytelling, and contact workflows.",
-    fullDescription: [
-      "This project is my personal portfolio platform, designed to communicate technical ability and product thinking in a clear, visual way. It combines live GitHub data, writing, and contact features into a single experience.",
-      "The core goal is to make each project easy to understand quickly: what it solves, how it was built, and why it matters. I focused on responsive design, fast navigation, and a layout that supports both recruiters and collaborators.",
-      "I continuously iterate on this repo as my central digital presence, adding richer project case studies, improved visual storytelling, and a more robust content structure."
-    ],
-    highlights: [
-      "Built with modern Next.js App Router architecture and reusable UI sections.",
-      "Integrates external APIs for live project and profile context.",
-      "Structured for easy updates as new projects and research are published."
-    ],
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
-  },
   "nanochat-replica": {
     slug: "nanochat-replica",
     title: "Nanochat",
@@ -109,26 +90,6 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
     galleryImage:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80"
-  },
-  inezaodon: {
-    slug: "inezaodon",
-    title: "GitHub Profile",
-    tagline: "Personal brand and developer identity hub.",
-    shortSummary: "Profile repository used to communicate skills, interests, and collaboration direction.",
-    fullDescription: [
-      "This repository powers my GitHub profile presence. It is a lightweight but important project because it serves as a first impression for collaborators, mentors, and recruiters.",
-      "The focus is messaging clarity: what I am building, what I am learning, and where I am headed. Good developer branding is part of good software communication.",
-      "I keep this repo aligned with my current interests so my open-source profile remains authentic and up to date."
-    ],
-    highlights: [
-      "Maintains a clear, current public technical identity.",
-      "Supports discoverability and collaboration readiness.",
-      "Complements project repos with personal engineering context."
-    ],
-    stack: ["Markdown", "GitHub Profile", "Technical Branding"],
-    coverImage: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=1400&q=80",
-    galleryImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80",
-    liveDeployUrl: "https://portlanding.vercel.app"
   }
 };
 

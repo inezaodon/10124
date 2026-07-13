@@ -2,6 +2,21 @@
 
 When a new GitHub repo appears on the home page, the **card image** and **project detail hero/gallery** come from `lib/project-content.ts` (`projectContentMap`), not from GitHub automatically.
 
+## Personal repos (never show on the live site)
+
+`10124.vercel.app` **self-updates** from the GitHub API. Any new public repo can appear automatically unless it is listed in `lib/portfolio-config.ts` → `PERSONAL_REPOS_EXCLUDED_FROM_PORTFOLIO`.
+
+**Do not remove or showcase these as portfolio projects:**
+
+| Repo | Why excluded |
+| ---- | ------------ |
+| `funcomp_homeworks` | Course homework — not showcase work |
+| `cheatsheet` | Personal reference notes |
+| `inezaodon` | GitHub profile repo |
+| `10124` | This portfolio site itself |
+
+When you add another personal repo (notes, configs, classwork), add its exact GitHub name to that list.
+
 ## Rules
 
 1. **Map key = exact GitHub repo name** (case-sensitive), e.g. `sketching_with_fouriers`, `10124`.
@@ -21,11 +36,9 @@ When a new GitHub repo appears on the home page, the **card image** and **projec
 | GitHub repo               | Image intent                     | coverImage query / theme                                                                 | galleryImage query / theme                                                                | liveDeployUrl override              |
 | ------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------- |
 | `sketching_with_fouriers` | Waves + digital / matrix         | `https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80` | `https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80` | —                                   |
-| `10124`                   | Code / laptop workspace          | (existing) dev desk                                                                       | (existing) circuits / hardware                                                             | —                                   |
 | `nanochat-replica`        | AI / neural                      | (existing) abstract AI                                                                    | (existing) network / chips                                                                 | —                                   |
 | `brilliantsciences`       | Classroom / learning             | (existing) students                                                                       | (existing) teaching                                                                        | —                                   |
 | `PRINCOMP_FINAL_PREOJECT` | City / mobility data             | (existing) skyline                                                                        | (existing) traffic / city night                                                            | —                                   |
-| `inezaodon`               | GitHub / code identity           | (existing) code editor vibe                                                               | (existing) terminal / code                                                                 | `https://portlanding.vercel.app`    |
 
 Always verify new image URLs return **HTTP 200** (Unsplash occasionally returns **404** for mistyped or removed photo IDs).
 

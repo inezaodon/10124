@@ -1,3 +1,5 @@
+import { isExcludedPortfolioRepo } from "@/lib/portfolio-config";
+
 export type Project = {
   id: number;
   name: string;
@@ -37,17 +39,11 @@ export async function getGitHubProjects(): Promise<Project[]> {
     `https://api.github.com/users/${GITHUB_USER}/repos?sort=created&direction=desc&per_page=100`
   );
 
-  const forceBottom = new Set(["10124", "inezaodon"]);
-
   return repos
     .filter((repo) => !repo.name.toLowerCase().includes("config"))
     .filter((repo) => !repo.archived)
-    .sort((a, b) => {
-      const aBottom = forceBottom.has(a.name);
-      const bBottom = forceBottom.has(b.name);
-      if (aBottom !== bBottom) return aBottom ? 1 : -1;
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-    });
+    .filter((repo) => !isExcludedPortfolioRepo(repo.name))
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 }
 
 export async function getDiscordPresence() {
@@ -87,4 +83,3 @@ export function techIconMap(stack: Array<string | null | undefined>) {
 
   return unique.map((item) => ({ label: item, iconClass: map[item] ?? "devicon-devicon-plain" }));
 }
-
