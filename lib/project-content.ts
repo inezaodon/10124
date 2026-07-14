@@ -71,7 +71,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "Bridges theoretical AI ideas with practical engineering execution."
     ],
     stack: ["JavaScript", "HTML", "Transformer Concepts", "Model Experimentation"],
-    coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=80",
+    coverImage: "/images/projects/andrej-karpathy.webp",
     galleryImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80"
   },
   brilliantsciences: {
