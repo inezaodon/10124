@@ -12,6 +12,29 @@ export type ProjectContent = {
 };
 
 export const projectContentMap: Record<string, ProjectContent> = {
+  "image-quality-cnn": {
+    slug: "image-quality-cnn",
+    title: "Image Quality CNN",
+    tagline: "Face image quality prediction with a compact CNN on FFHQ/OFIQ data.",
+    shortSummary:
+      "SmallResNet-based classifier for face image quality, with a live Streamlit app for interactive scoring.",
+    fullDescription: [
+      "This project trains a SmallResNet CNN to predict face image quality using FFHQ and OFIQ datasets, turning perceptual quality into a measurable score.",
+      "The pipeline covers data preparation, model training, and evaluation, with emphasis on making results accessible through an interactive interface.",
+      "A deployed Streamlit app lets users upload images and explore quality predictions without running notebooks locally."
+    ],
+    highlights: [
+      "End-to-end CNN workflow from face datasets to deployed inference UI.",
+      "Interactive Streamlit deployment for hands-on quality scoring.",
+      "Structured for reproducible experimentation in Jupyter."
+    ],
+    stack: ["Python", "Jupyter Notebook", "Streamlit", "PyTorch", "Computer Vision"],
+    coverImage:
+      "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=1400&q=80",
+    galleryImage:
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80",
+    liveDeployUrl: "https://image-quality-cnn-o3zjl95wsj3bwdqevqji7n.streamlit.app"
+  },
   "tumor-classification": {
     slug: "tumor-classification",
     title: "Tumor Classification",
