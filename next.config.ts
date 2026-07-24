@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "opengraph.githubassets.com" },
       { protocol: "https", hostname: "images.unsplash.com" }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: "/resume",
+        destination: "/resume/Odon-Ineza-Resume.pdf",
+        permanent: false
+      }
+    ];
   }
 };
 

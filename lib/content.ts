@@ -1,42 +1,47 @@
+import { resumePdfPath, resumeShortPath } from "@/lib/resume-paths";
+
 export const resumeHighlights = {
   name: "Odon Ineza",
   title: "Computer Science Student @ University of Notre Dame",
   pitch:
-    "I build practical software that blends product thinking, strong engineering fundamentals, and measurable user impact.",
+    "I build practical ML systems and full-stack software that blend research rigor, product thinking, and measurable impact.",
   education: [
     {
       school: "University of Notre Dame",
       degree: "B.S. in Computer Science, Minor in Mathematics",
-      detail: "GPA 3.794 | Expected May 2029"
+      detail: "GPA 3.73 / 4.00 | Expected May 2029"
     }
   ],
   experience: [
     {
-      role: "Full Stack Developer",
-      org: "Pivot Access Ltd",
-      period: "Feb 2025 - Jul 2025",
+      role: "Research Intern: Face Image Quality CNN",
+      org: "University of Notre Dame",
+      period: "June 2026 – August 2026",
       bullets: [
-        "Maintained production infrastructure with Kubernetes, Docker, Prometheus, Grafana, Loki, and New Relic.",
-        "Improved reliability by automating deployment and monitoring workflows across services."
+        "Designed and trained a compact SmallResNet (0.33M params) in PyTorch to predict OFIQ face-image quality on 70K FFHQ images (MAE 1.32, Pearson r = 0.866).",
+        "Built the model as a frozen differentiable quality critic for GAN training, enabling millisecond OFIQ-like feedback instead of multi-second full scoring.",
+        "Delivered a reproducible training/evaluation pipeline plus Streamlit/Flask demos."
       ]
     },
     {
-      role: "Front End Developer & Research Intern",
+      role: "Full Stack Developer; Front End Developer & Research Intern",
       org: "Pivot Access Ltd",
-      period: "Aug 2023 - Feb 2025",
+      period: "Aug 2023 – Jul 2025",
       bullets: [
-        "Built responsive interfaces with React Hooks and Tailwind CSS to improve usability.",
-        "Used PostgreSQL and Matplotlib-driven analysis to support design and product decisions."
+        "Maintained production infrastructure with Kubernetes, Docker, Prometheus, Grafana, Loki, and New Relic.",
+        "Automated CI/CD and monitoring workflows, reducing manual release steps and shortening incident detection time.",
+        "Shipped responsive React + Tailwind interfaces and used PostgreSQL/Matplotlib analysis to drive product decisions."
       ]
     }
   ],
   strengths: [
-    "Full-stack web development (React, Next.js, Node.js)",
+    "Machine learning & computer vision (PyTorch, TensorFlow/Keras, scikit-learn)",
+    "Full-stack web development (React, Next.js, Node.js, Flask, FastAPI)",
     "Cloud-native tooling (Docker, Kubernetes, monitoring stacks)",
-    "Analytical thinking (Python, SQL, data visualization)",
-    "Leadership and communication in research and student organizations"
+    "Data analysis and visualization (Python, SQL, Plotly, Matplotlib)"
   ],
-  resumePdfPath: "/resume/Odon-Ineza-Resume.pdf"
+  resumePdfPath,
+  resumeShortPath
 };
 
 /** Long-form personal narrative for the Origin Story overlay on the home page (single essay, no segments). */
@@ -79,13 +84,49 @@ export const slideshowCaptionFallbacks = [
   "Another slide, another story."
 ];
 
+/** Papers ordered with CS / ML work first. */
 export const papers = [
+  {
+    title: "Face Image Quality Prediction with a Compact CNN",
+    category: "ML Research / Tech Report",
+    file: "/papers/face-image-quality-cnn-tech-report.pdf",
+    summary:
+      "Summer research tech report on SmallResNet (0.33M params) for OFIQ face-image quality prediction on FFHQ. Covers motivation for a compact differentiable quality critic, architecture design, anti-overfitting strategy, and evaluation for generative training support under advisors Spencer Giddens and Prof. Adam Czajka."
+  },
+  {
+    title: "Model, Documentation, and Visualization Fixes",
+    category: "ML Engineering / Companion Report",
+    file: "/papers/face-quality-model-fixes.pdf",
+    summary:
+      "Companion fix log to the face-quality tech report. Audits ten issues spanning regression-to-the-mean at score extremes, training stability, documentation contradictions, and visualization gaps — with evidence and applied fixes in training, evaluation, and reporting code."
+  },
+  {
+    title: "Brain Tumor MRI Classification",
+    category: "Machine Learning Deliverable",
+    file: "/papers/brain-tumor-mri-classification.pdf",
+    summary:
+      "Educational multi-class neuroimaging prototype (glioma, meningioma, pituitary, no tumor) comparing classical and deep learning approaches. Documents the end-to-end pipeline, transfer learning with MobileNetV2, and deployment-oriented evaluation for AME 34351 Machine Learning for Engineers."
+  },
   {
     title: "Predictive Technologies and Justice in Sub-Saharan Africa",
     category: "Research Evaluation",
     file: "/papers/lumiere-research-evaluation.pdf",
     summary:
       "This research and mentor evaluation examines how AI-driven risk and predictive systems can support judicial efficiency in countries such as Kenya and Rwanda while introducing governance and fairness concerns. It balances opportunity with caution by discussing algorithmic bias, data limitations, accountability, and public trust. The work argues for context-aware, rights-preserving implementation frameworks rather than one-size-fits-all imports from Global North models."
+  },
+  {
+    title: "Virtuous Engineering Design — Final Project Part 4",
+    category: "Engineering Design",
+    file: "/papers/virtuous-engineering-final-project-part-4.pdf",
+    summary:
+      "Team design report for AME 34560 covering stakeholder research, virtues-guided requirements, and ethical engineering specifications for projects such as multilingual bus RTPI displays and rural transport access. Includes subsystem modeling, measures of merit, and concept selection via decision matrices."
+  },
+  {
+    title: "Personal Energy Expenditure on Kylemore Abbey Week 1 Hikes",
+    category: "Engineering Analysis",
+    file: "/papers/kylemore-abbey-energy-expenditure.pdf",
+    summary:
+      "Field-based analysis estimating gravitational potential energy expended across four Kylemore Abbey Week 1 hikes. Combines elevation change, summit times, and body mass in a MATLAB potential-energy model, comparing total energy and energy rate across routes."
   },
   {
     title: "Morality in the Northern Renaissance Workplace",
@@ -100,13 +141,6 @@ export const papers = [
     file: "/papers/build-your-own-empire-rhetorical-analysis.pdf",
     summary:
       "Based on an interview with entrepreneur Isaac Basomingera, this paper analyzes how rhetoric can persuade audiences to prioritize impact over profit. It highlights the use of ethos through lived credibility, logos through measurable outcomes, and pathos through personal transformation stories. The essay frames success as purpose-driven work that expands opportunity for others."
-  },
-  {
-    title: "Further Up & Further In Discussion Guide",
-    category: "Reference / Study Material",
-    file: "/papers/further-up-further-in-discussion-guide.pdf",
-    summary:
-      "This guide presents key C.S. Lewis themes for reflective discussion, including reason and faith, moral law, suffering, prayer, and intellectual humility. It pairs quotations with deeper prompts that encourage both analytical and personal engagement. The document is especially useful for structured group dialogue around worldview, ethics, and meaning."
   },
   {
     title: "Lumiere Research Scholar Program Certificate",

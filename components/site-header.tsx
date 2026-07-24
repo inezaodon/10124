@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { SocialLinks } from "@/components/social-links";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { resumeShortPath } from "@/lib/resume-paths";
 
 const links = [
   { href: "#projects", label: "Projects" },
-  { href: "#resume", label: "Resume" },
+  { href: "#resume", label: "Highlights" },
   { href: "#gallery", label: "Gallery" },
   { href: "#papers", label: "Papers" },
   { href: "#contact", label: "Contact" }
@@ -35,13 +36,21 @@ export function SiteHeader() {
             ☰
           </button>
           <div className="flex flex-col items-end gap-3 sm:flex-row sm:items-center sm:gap-3">
+            <a
+              href={resumeShortPath}
+              target="_blank"
+              rel="noreferrer"
+              className="pop-btn-primary whitespace-nowrap px-4 py-2 text-sm"
+            >
+              Resume PDF
+            </a>
             <ThemeToggle />
             <SocialLinks className="justify-end" />
           </div>
         </div>
       </div>
 
-      <nav className="hidden flex-wrap gap-x-5 gap-y-2 md:flex">
+      <nav className="hidden flex-wrap items-center gap-x-5 gap-y-2 md:flex">
         {links.map((link) => (
           <a
             key={link.href}
@@ -55,6 +64,15 @@ export function SiteHeader() {
 
       {open && (
         <nav className="space-y-2 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-lg shadow-slate-900/5 backdrop-blur-sm md:hidden dark:border-zinc-700 dark:bg-zinc-900/95">
+          <a
+            href={resumeShortPath}
+            target="_blank"
+            rel="noreferrer"
+            className="pop-btn-primary block text-center text-sm"
+            onClick={() => setOpen(false)}
+          >
+            Resume PDF
+          </a>
           {links.map((link) => (
             <a
               key={link.href}

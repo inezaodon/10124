@@ -39,8 +39,8 @@ export default async function HomePage() {
           <div className="mt-8 flex flex-col gap-4">
             <OriginStoryLauncher />
             <div className="flex flex-wrap gap-3">
-              <a href={resumeHighlights.resumePdfPath} target="_blank" rel="noreferrer" className="pop-btn-primary">
-                View Resume
+              <a href={resumeHighlights.resumeShortPath} target="_blank" rel="noreferrer" className="pop-btn-primary">
+                Get Resume Instantly
               </a>
               <a href="#gallery" className="pop-btn-secondary">
                 Open Photo Dashboard
@@ -93,8 +93,8 @@ export default async function HomePage() {
               </article>
             ))}
           </div>
-          <a href={resumeHighlights.resumePdfPath} target="_blank" rel="noreferrer" className="pop-link inline-block">
-            Download full resume (PDF)
+          <a href={resumeHighlights.resumeShortPath} target="_blank" rel="noreferrer" className="pop-btn-primary mt-2 inline-flex">
+            Get Resume Instantly (PDF)
           </a>
         </div>
 
@@ -120,7 +120,7 @@ export default async function HomePage() {
         <p className="section-label">Research</p>
         <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">Research & Writing</h2>
         <p className="max-w-3xl text-slate-600 dark:text-slate-300">
-          Selected papers hosted on this site, each with a short summary to make browsing easier.
+          Selected papers hosted on this site — CS and ML work listed first, each with a short summary.
         </p>
         <div className="grid gap-4">
           {papers.map((paper) => (
