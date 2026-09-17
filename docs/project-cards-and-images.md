@@ -55,7 +55,7 @@ Local files under `public/` need no `next.config.ts` image host. Remote hosts mu
 | `nanochat-replica` | AI / neural (Andrej Karpathy) | `/images/projects/andrej-karpathy.webp` | (existing) network / chips | — |
 | `brilliantsciences` | Classroom / learning | (existing) students | (existing) teaching | — |
 | `PRINCOMP_FINAL_PREOJECT` | City / mobility data | (existing) skyline | (existing) traffic / city night | — |
-| `intro_to_iris_recognition` | Live study-site tabs + iris close-up | `/images/projects/iris-start.png` | `https://images.unsplash.com/photo-1494869042583-f6c911f04b4c?auto=format&fit=crop&w=1400&q=80` (eye / iris) | `https://intro-to-iris-recognition.vercel.app` |
+| `intro_to_iris_recognition` | Live study-site tabs + iris close-up | `/images/projects/iris-start.png` | `https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1400&q=80` (eye / iris close-up) | `https://intro-to-iris-recognition.vercel.app` |
 | `trading-model` | Firebase umbrella + market charts | `/images/projects/trading-home.png` | `https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1400&q=80` (candlesticks) | `https://trading-model-oineza-8280d.web.app` |
 | `cicd-internship-page` | CS + EE live trackers + CI/CD imagery | `/images/projects/internships-cs.png` | `/images/projects/internships-ee.png` | `https://ndpeeps-cs-internships.vercel.app` |
 

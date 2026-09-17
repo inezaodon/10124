@@ -4,11 +4,14 @@ Next.js portfolio app with live GitHub projects, optional Discord presence, Dev.
 
 The live site at **10124.vercel.app** auto-syncs projects from GitHub. Personal repos (homework, cheatsheets, profile, this site) are excluded via `lib/portfolio-config.ts` — see `docs/project-cards-and-images.md`.
 
+The home-page **Email me** form sends topic-specific questions through Resend (`/api/contact`). Setup steps: **[docs/resend-contact.md](docs/resend-contact.md)**.
+
 ## Run locally
 
 1. Install dependencies:
    npm install
 2. Create your env file:
    cp .env.example .env.local
-3. Start development server:
+3. Add `RESEND_API_KEY` (and optional `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL`) so the contact form can send mail.
+4. Start development server:
    npm run dev

@@ -192,7 +192,7 @@ export const projectContentMap: Record<string, ProjectContent> = {
     ],
     stack: ["HTML", "CSS", "JavaScript", "Biometrics", "Computer Vision", "Iris recognition"],
     coverImage: "/images/projects/iris-start.png",
-    galleryImage: "https://images.unsplash.com/photo-1494869042583-f6c911f04b4c?auto=format&fit=crop&w=1400&q=80",
+    galleryImage: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1400&q=80",
     galleryImages: [
       {
         src: "/images/projects/iris-pipeline.png",
