@@ -4,6 +4,8 @@ The **Contact Me** form on the home page (`#contact`) posts to `/api/contact` an
 
 Until `RESEND_API_KEY` is set on the Vercel deployment, the form returns a friendly “not wired yet” error.
 
+**Never commit the key.** Put it only in `.env.local` (gitignored) for local dev, and in the Vercel dashboard for the live site. `.env.example` keeps an empty `RESEND_API_KEY=` placeholder.
+
 ## 1. Create a Resend account and API key
 
 1. Sign up at [https://resend.com/signup](https://resend.com/signup) with the inbox you can actually check (your ND email is fine).
