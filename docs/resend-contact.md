@@ -95,3 +95,5 @@ In the Vercel project for this repo (Production **and** Preview):
 | Provider error mentioning `onboarding@resend.dev` | From-address is the test sender, but `CONTACT_TO_EMAIL` is not the Resend account email |
 | `domain is not verified` | Switch From to a verified domain, or temporarily use `onboarding@resend.dev` |
 | Mail never arrives | Check [Resend Logs](https://resend.com/emails); spam folder; confirm you redeployed after adding env vars |
+
+The same Resend variables send **new-repo review** mail (`/api/portfolio-detect`). Setup for HMAC secrets, GitHub write token, and cron: **[docs/portfolio-inbox.md](./portfolio-inbox.md)**. Do not put `RESEND_API_KEY` or `PORTFOLIO_INBOX_SECRET` in git.

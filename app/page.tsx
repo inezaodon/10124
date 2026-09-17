@@ -8,6 +8,8 @@ import { papers, resumeHighlights } from "@/lib/content";
 import { getSlideshowSlides } from "@/lib/slideshow";
 import { getDevtoPosts, getDiscordPresence, getGitHubProjects, techIconMap } from "@/lib/api";
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [projectsResult, presenceResult, postsResult, slidesResult] = await Promise.allSettled([
     getGitHubProjects(),

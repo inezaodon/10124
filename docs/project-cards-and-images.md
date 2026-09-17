@@ -4,7 +4,7 @@ When a new GitHub repo appears on the home page, the **card image** and **projec
 
 ## Personal repos (never show on the live site)
 
-`10124.vercel.app` **self-updates** from the GitHub API. Any new public repo can appear automatically unless it is listed in `lib/portfolio-config.ts` → `PERSONAL_REPOS_EXCLUDED_FROM_PORTFOLIO`.
+`10124.vercel.app` **self-updates** from the GitHub API, but **new public repos stay off the grid until Odon approves them** (email + confirm POST). See [portfolio-inbox.md](./portfolio-inbox.md). Personal repos listed in `lib/portfolio-config.ts` → `PERSONAL_REPOS_EXCLUDED_FROM_PORTFOLIO` are never emailed and never shown.
 
 **Do not remove or showcase these as portfolio projects:**
 

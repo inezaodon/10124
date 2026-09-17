@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { isRepoApprovedForPortfolio } from "@/lib/portfolio-allowlist";
+import { getPortfolioAllowlist } from "@/lib/portfolio-github";
 import { INTERNSHIP_UMBRELLA_SLUG, isCollapsedInternshipRepo, isExcludedPortfolioRepo } from "@/lib/portfolio-config";
 import {
   projectContentMap,
@@ -41,6 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (isCollapsedInternshipRepo(repo)) {
     return { title: "CI/CD Self-Updating Internship Page" };
   }
+  const allowlist = await getPortfolioAllowlist();
+  if (!isRepoApprovedForPortfolio(repo, allowlist)) {
+    return { title: "Project Not Found" };
+  }
   const project = await getRepo(repo);
   const content = projectContentMap[repo];
 
@@ -76,6 +82,10 @@ export default async function ProjectPage({ params }: Props) {
   }
   if (isCollapsedInternshipRepo(repo)) {
     redirect(`/projects/${INTERNSHIP_UMBRELLA_SLUG}`);
+  }
+  const allowlist = await getPortfolioAllowlist();
+  if (!isRepoApprovedForPortfolio(repo, allowlist)) {
+    notFound();
   }
   const project = await getRepo(repo);
   const content = projectContentMap[repo];

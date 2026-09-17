@@ -2,8 +2,8 @@
  * Personal GitHub repos that must NOT appear on 10124.vercel.app.
  *
  * The portfolio self-updates from the GitHub API (`getGitHubProjects` in lib/api.ts).
- * New repos are picked up automatically — add any personal/non-showcase repo here
- * so it stays hidden from the project grid and detail pages.
+ * New public repos are emailed for approval and stay off the grid until confirmed
+ * (`docs/portfolio-inbox.md`). Repos listed here are never emailed and never shown.
  */
 export const PERSONAL_REPOS_EXCLUDED_FROM_PORTFOLIO = [
   "funcomp_homeworks", // course homework — not portfolio work

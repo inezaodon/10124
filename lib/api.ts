@@ -1,3 +1,5 @@
+import { isRepoApprovedForPortfolio } from "@/lib/portfolio-allowlist";
+import { getPortfolioAllowlist } from "@/lib/portfolio-github";
 import {
   INTERNSHIP_TRACKER_REPOS,
   INTERNSHIP_UMBRELLA_CANONICAL_REPO,
@@ -42,21 +44,26 @@ async function fetchJson<T>(url: string, revalidateSeconds = 300): Promise<T> {
 }
 
 export async function getGitHubProjects(): Promise<Project[]> {
-  const repos = await fetchJson<Project[]>(
-    `https://api.github.com/users/${GITHUB_USER}/repos?sort=created&direction=desc&per_page=100`
-  );
+  const [repos, allowlist] = await Promise.all([
+    fetchJson<Project[]>(
+      `https://api.github.com/users/${GITHUB_USER}/repos?sort=created&direction=desc&per_page=100`,
+      60
+    ),
+    getPortfolioAllowlist()
+  ]);
 
   const visible = repos
     .filter((repo) => !repo.name.toLowerCase().includes("config"))
     .filter((repo) => !repo.archived)
     .filter((repo) => !isExcludedPortfolioRepo(repo.name))
-    .filter((repo) => !isCollapsedInternshipRepo(repo.name));
+    .filter((repo) => !isCollapsedInternshipRepo(repo.name))
+    .filter((repo) => isRepoApprovedForPortfolio(repo.name, allowlist));
 
   const canonicalInternship =
     repos.find((repo) => repo.name === INTERNSHIP_UMBRELLA_CANONICAL_REPO) ??
     repos.find((repo) => INTERNSHIP_TRACKER_REPOS.includes(repo.name as (typeof INTERNSHIP_TRACKER_REPOS)[number]));
 
-  if (canonicalInternship) {
+  if (canonicalInternship && isRepoApprovedForPortfolio(INTERNSHIP_UMBRELLA_SLUG, allowlist)) {
     const content = projectContentMap[INTERNSHIP_UMBRELLA_SLUG];
     visible.push({
       ...canonicalInternship,
