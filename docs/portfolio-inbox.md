@@ -81,13 +81,13 @@ Without this token in production, confirm cannot save and detect will not persis
 
 ## Vercel Cron
 
-`vercel.json` schedules:
+`vercel.json` schedules a **once-per-day** job (Hobby-safe):
 
 ```
-0 * * * *  →  GET /api/portfolio-detect
+0 13 * * *  →  GET /api/portfolio-detect
 ```
 
-Vercel Cron [Hobby](https://vercel.com/docs/cron-jobs) only runs **once per day**. The hourly expression is correct for Pro; on Hobby Vercel will still invoke detect, just not every hour. That is enough — new repos are rare.
+That is ~9:00 AM Eastern during EDT. Vercel [Hobby](https://vercel.com/docs/cron-jobs) rejects hourly crons (`0 * * * *`) and the preview deploy fails. Daily is enough — new repos are rare. Pro can use hourly later if you upgrade.
 
 If cron is unavailable, call the endpoint yourself:
 
