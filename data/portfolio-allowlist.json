@@ -1,0 +1,17 @@
+{
+  "approved": [
+    "image-quality-cnn",
+    "tumor-classification",
+    "nanochat-replica",
+    "brilliantsciences",
+    "PRINCOMP_FINAL_PREOJECT",
+    "sketching_with_fouriers",
+    "intro_to_iris_recognition",
+    "trading-model",
+    "ndpeeps_cs_internships",
+    "ndpeeps_ee_internships"
+  ],
+  "hidden": [],
+  "pending": [],
+  "consumedNonces": []
+}

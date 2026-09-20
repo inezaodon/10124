@@ -1,3 +1,16 @@
+export type ProjectGalleryImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+export type ProjectExtraLink = {
+  label: string;
+  href: string;
+  /** When true, also shown on the home-page project card. */
+  showOnCard?: boolean;
+};
+
 export type ProjectContent = {
   slug: string;
   title: string;
@@ -8,8 +21,33 @@ export type ProjectContent = {
   stack: string[];
   coverImage: string;
   galleryImage: string;
+  galleryImages?: ProjectGalleryImage[];
+  extraLinks?: ProjectExtraLink[];
   liveDeployUrl?: string;
+  /** GitHub repo to fetch when the portfolio slug is synthetic (umbrella cards). */
+  canonicalGitHubRepo?: string;
 };
+
+export function resolveGitHubRepoName(slug: string): string {
+  return projectContentMap[slug]?.canonicalGitHubRepo ?? slug;
+}
+
+export function getProjectGallery(content?: ProjectContent): ProjectGalleryImage[] {
+  if (!content) return [];
+  const items: ProjectGalleryImage[] = [];
+  const seen = new Set<string>();
+  const add = (src?: string, alt?: string, caption?: string) => {
+    if (!src || seen.has(src)) return;
+    seen.add(src);
+    items.push({ src, alt: alt ?? `${content.title} visual`, caption });
+  };
+
+  add(content.galleryImage, `${content.title} supporting visual`);
+  for (const image of content.galleryImages ?? []) {
+    add(image.src, image.alt, image.caption);
+  }
+  return items;
+}
 
 export const projectContentMap: Record<string, ProjectContent> = {
   "image-quality-cnn": {
@@ -133,6 +171,192 @@ export const projectContentMap: Record<string, ProjectContent> = {
       "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1400&q=80",
     galleryImage:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80"
+  },
+  intro_to_iris_recognition: {
+    slug: "intro_to_iris_recognition",
+    title: "Intro to Iris Recognition",
+    tagline: "Overnight study site for Daugman 2004 IrisCodes and Notre Dame’s ArcIris / NIST IREX stack.",
+    shortSummary:
+      "Interactive briefing of the six-step iris pipeline — NIR capture, rubber-sheet unwrapping, 2,048-bit Gabor IrisCodes, then ArcIris embeddings and IREX metrics — with slides, sources, and a quiz.",
+    fullDescription: [
+      "This site is a first-night map of iris recognition: Daugman’s 2004 explainer of the IrisCode, then the modern Notre Dame / IREX stack that still starts from the same geometry. Tabs walk through Start here, Pipeline, Daugman 2004 slides, Deep learning, ArcIris, IREX, and a readiness quiz.",
+      "The through-line is the six-step chain every method on the reading list shares: NIR capture, localize pupil and iris, rubber-sheet unwrap to polar, encode (classic Gabor phase or a neural embedding), match, and decide. Daugman invented steps 2–5 in the 1990s; ArcIris keeps 2–3 and replaces encode/match with ResNet100 + ArcFace on 512×64 polar images.",
+      "The Daugman tab is a full slide walkthrough of How iris recognition works: independence as a Hamming-distance test, HD ≤ 0.32 as a match, ~249 degrees of freedom, left ≠ right, and why iris could search at national scale when faces could not. ArcIris and IREX tabs turn that history into the numbers that matter on messy field data — FNIR at 1% FPIR, FTE, and why quality filtering is a forensic trap.",
+      "Built as a static HTML study pack so the pipeline, independence test, and metric alphabet can be rehearsed without opening a paper cover-to-cover."
+    ],
+    highlights: [
+      "Seven-tab study pack: pipeline, 2004 slides, deep learning, ArcIris, IREX, and quiz.",
+      "Rubber-sheet unwrap, 2,048-bit IrisCodes, and XOR Hamming-distance independence tests, in plain English.",
+      "ArcIris (ResNet100 + ArcFace) vs TripletIris, with NIST IREX ranking language (FNIR @ 1% FPIR, FTE).",
+      "Live on Vercel as a self-contained overnight reading site."
+    ],
+    stack: ["HTML", "CSS", "JavaScript", "Biometrics", "Computer Vision", "Iris recognition"],
+    coverImage: "/images/projects/iris-start.png",
+    galleryImage: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "/images/projects/iris-pipeline.png",
+        alt: "Iris recognition pipeline tab with the six-step chain",
+        caption: "Pipeline — capture, localize, unwrap, encode, match, decide."
+      },
+      {
+        src: "/images/projects/iris-daugman.png",
+        alt: "Daugman 2004 slide walkthrough",
+        caption: "Daugman 2004 slides — independence test and the IrisCode."
+      },
+      {
+        src: "/images/projects/iris-dl.png",
+        alt: "Deep learning tab comparing where CNNs help vs IrisCodes",
+        caption: "Deep learning — where nets win, and where XOR still wins at scale."
+      },
+      {
+        src: "/images/projects/iris-arciris.png",
+        alt: "ArcIris vs TripletIris comparison",
+        caption: "ArcIris — ResNet100 + ArcFace on rubber-sheet polar images."
+      },
+      {
+        src: "/images/projects/iris-irex.png",
+        alt: "NIST IREX metrics cheat sheet",
+        caption: "IREX — FNIR, FPIR, FTE, and the ranking alphabet."
+      },
+      {
+        src: "/images/projects/iris-quiz.png",
+        alt: "Iris recognition readiness quiz",
+        caption: "Quiz — the questions that mean the pipeline is actually owned."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1400&q=80",
+        alt: "Camera and lenses used to capture iris texture",
+        caption: "Capture — NIR cameras, not RGB selfies, make stromal texture visible."
+      }
+    ],
+    extraLinks: [
+      { label: "Start here", href: "https://intro-to-iris-recognition.vercel.app/#home" },
+      { label: "Pipeline", href: "https://intro-to-iris-recognition.vercel.app/#pipeline" },
+      { label: "Daugman 2004 slides", href: "https://intro-to-iris-recognition.vercel.app/#daugman/1" },
+      { label: "ArcIris", href: "https://intro-to-iris-recognition.vercel.app/#arciris" },
+      { label: "IREX", href: "https://intro-to-iris-recognition.vercel.app/#irex" },
+      { label: "Quiz", href: "https://intro-to-iris-recognition.vercel.app/#quiz" }
+    ],
+    liveDeployUrl: "https://intro-to-iris-recognition.vercel.app"
+  },
+  "trading-model": {
+    slug: "trading-model",
+    title: "Trading Model",
+    tagline: "Stochastic calculus research stack for NASDAQ-oriented path simulation, option pricing, and risk.",
+    shortSummary:
+      "FastAPI + Firebase Hosting umbrella with seven engines: GBM, Brownian motion, Ornstein–Uhlenbeck, Heston, Monte Carlo VaR, rough volatility, and MC option pricing.",
+    fullDescription: [
+      "Trading Model is an educational stochastic calculus stack aimed at liquid NASDAQ names and index options. Classical Brownian models are the baseline; Markov stochastic volatility (Heston) and rough Bergomi improve realism for fat tails, leverage (ρ < 0), and steep short-maturity implied-vol skews.",
+      "Seven interactive engines share one umbrella site: Geometric Brownian Motion (Black–Scholes backbone), Wiener / Brownian paths, Ornstein–Uhlenbeck mean reversion, Heston spot–variance with leverage, Monte Carlo European options vs Black–Scholes, portfolio VaR / CVaR, and rough volatility. Each page exposes parameters, a Run control against the FastAPI backend, and Chart.js visuals.",
+      "The repo layers core SDE simulators, NASDAQ-oriented market-data adapters, strategy hooks, and a Node multi-agent orchestrator for parallel simulate / calibrate / backtest work. The public Firebase Hosting site is the demo surface; the API is the research engine. Not investment advice — no live brokerage connectivity.",
+      "Use it to see how GBM, OU, Heston, and rough vol actually behave when you change drift, mean reversion, vol-of-vol, or Hurst-like roughness, instead of treating the models as black boxes."
+    ],
+    highlights: [
+      "Umbrella FastAPI + Firebase site covering seven stochastic engines.",
+      "GBM, Brownian, OU, Heston, MC options, portfolio VaR/CVaR, and rough Bergomi.",
+      "Parameter panels and Chart.js path / risk visuals against a shared backend.",
+      "Research-oriented: NASDAQ liquid equities/ETFs and synthetic Wiener paths, not live trading."
+    ],
+    stack: ["Python", "FastAPI", "Firebase Hosting", "JavaScript", "Chart.js", "Stochastic calculus"],
+    coverImage: "/images/projects/trading-home.png",
+    galleryImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "/images/projects/trading-gbm.png",
+        alt: "Geometric Brownian Motion simulator with SDE parameters",
+        caption: "GBM — exact log-Euler equity paths, the Black–Scholes backbone."
+      },
+      {
+        src: "/images/projects/trading-heston.png",
+        alt: "Heston stochastic volatility project page",
+        caption: "Heston — spot and variance with correlated Brownian motions."
+      },
+      {
+        src: "/images/projects/trading-var.png",
+        alt: "Monte Carlo Value-at-Risk project page",
+        caption: "Monte Carlo VaR / CVaR on a liquid ETF basket."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1400&q=80",
+        alt: "Market chart and order book on a trading screen",
+        caption: "Markets — NASDAQ-oriented framing for research calibration."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1400&q=80",
+        alt: "Laptop, watch, and phone showing candlestick charts",
+        caption: "Multi-surface research — paths, vol, and risk in one stack."
+      }
+    ],
+    extraLinks: [
+      { label: "Umbrella site", href: "https://trading-model-oineza-8280d.web.app/" },
+      { label: "GBM simulator", href: "https://trading-model-oineza-8280d.web.app/projects/gbm" },
+      { label: "Heston SV", href: "https://trading-model-oineza-8280d.web.app/projects/heston" },
+      { label: "Monte Carlo VaR", href: "https://trading-model-oineza-8280d.web.app/projects/var" }
+    ],
+    liveDeployUrl: "https://trading-model-oineza-8280d.web.app"
+  },
+  "cicd-internship-page": {
+    slug: "cicd-internship-page",
+    title: "CI/CD Self-Updating Internship Page",
+    tagline: "Two live internship trackers that refresh from public sources twice a day via GitHub Actions.",
+    shortSummary:
+      "CS and EE internship boards that fetch SimplifyJobs and underclassmen listings at runtime, with a twice-daily GitHub Actions digest — no manual refresh.",
+    fullDescription: [
+      "One umbrella for two self-updating trackers. The CS site (ndpeeps_cs_internships) is a daily board of software internships pulled from SimplifyJobs/Summer internships and Underclassmen Opportunities. Views slice the same live JSON by day, big-tech / trading firms, and AI / ML / data roles. The client loads listings and markdown at runtime, so a Vercel deploy stays current without rebuilding the app for every new posting.",
+      "The EE clone (ndpeeps_ee_internships) filters hardware-relevant roles: semiconductors and chip design, telecom, controls/robotics, signal/embedded, firmware/FPGA/ASIC, software-adjacent ML, and other hardware R&D. Company names stay large for fast scanning, with career hubs for Intel, NVIDIA, Qualcomm, TSMC, TI, Analog Devices, ASML, and defense labs.",
+      "CI/CD is the product. GitHub Actions runs twice a day (~9 AM and ~9 PM Eastern): pull the latest listings, build a digest that highlights underclassmen and big-tech roles, and email it. The pages themselves are Vercel deploys; refreshing the browser is enough because the data is fetched live. A manual “Email today’s digest” control can re-run the workflow when you want an extra pass.",
+      "Collapsed here as a single portfolio piece because the CS and EE sites are the same idea — a self-updating internship page — with two tracks and two live URLs."
+    ],
+    highlights: [
+      "Live fetch from SimplifyJobs plus underclassmen sources — the UI is not a frozen scrape.",
+      "GitHub Actions cron twice daily (~9 AM / 9 PM ET) pulls listings and emails a digest.",
+      "CS tracker: by day, big tech, and AI roles. EE tracker: semiconductors, telecom, controls, embedded, FPGA, and software-adjacent.",
+      "Both boards ship on Vercel; opening the site always shows the latest JSON, not last week’s build."
+    ],
+    stack: ["TypeScript", "React", "Vite", "Vercel", "GitHub Actions", "CI/CD"],
+    coverImage: "/images/projects/internships-cs.png",
+    galleryImage: "/images/projects/internships-ee.png",
+    galleryImages: [
+      {
+        src: "/images/projects/internships-cs-bigtech.png",
+        alt: "CS internship tracker Big tech view",
+        caption: "CS tracker — Big tech slice of SimplifyJobs + underclassmen listings."
+      },
+      {
+        src: "/images/projects/internships-ee-semiconductors.png",
+        alt: "EE internships semiconductors and chip design track",
+        caption: "EE tracker — semiconductors & chip design, grouped by date."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+        alt: "Analytics dashboard representing live listing metrics",
+        caption: "Self-updating dashboards — counts and filters refresh from live JSON."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1400&q=80",
+        alt: "GitHub mascot in front of a laptop",
+        caption: "GitHub Actions — twice-daily pull, digest, and email."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80",
+        alt: "Circuit board for electrical engineering internships",
+        caption: "EE track — hardware, silicon, firmware, and FPGA roles."
+      },
+      {
+        src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1400&q=80",
+        alt: "Laptop with code editor open",
+        caption: "CS track — software, AI, and underclassmen-friendly listings."
+      }
+    ],
+    extraLinks: [
+      { label: "CS tracker (live)", href: "https://ndpeeps-cs-internships.vercel.app", showOnCard: true },
+      { label: "EE tracker (live)", href: "https://ndpeeps-ee-internships.vercel.app", showOnCard: true },
+      { label: "CS GitHub", href: "https://github.com/inezaodon/ndpeeps_cs_internships", showOnCard: true },
+      { label: "EE GitHub", href: "https://github.com/inezaodon/ndpeeps_ee_internships", showOnCard: true }
+    ],
+    liveDeployUrl: "https://ndpeeps-cs-internships.vercel.app",
+    canonicalGitHubRepo: "ndpeeps_cs_internships"
   }
 };
 

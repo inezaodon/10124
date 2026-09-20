@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
         source: "/resume",
         destination: "/resume/Odon-Ineza-Resume.pdf",
         permanent: false
+      },
+      {
+        source: "/projects/ndpeeps_cs_internships",
+        destination: "/projects/cicd-internship-page",
+        permanent: true
+      },
+      {
+        source: "/projects/ndpeeps_ee_internships",
+        destination: "/projects/cicd-internship-page",
+        permanent: true
       }
     ];
   }

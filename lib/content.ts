@@ -4,7 +4,7 @@ export const resumeHighlights = {
   name: "Odon Ineza",
   title: "Computer Science Student @ University of Notre Dame",
   pitch:
-    "I build practical ML systems and full-stack software that blend research rigor, product thinking, and measurable impact.",
+    "I build practical ML systems and full-stack software that blend research rigor, product thinking, and measurable impact — from iris biometrics at Notre Dame CVRL to production web and CI/CD.",
   education: [
     {
       school: "University of Notre Dame",
@@ -14,30 +14,39 @@ export const resumeHighlights = {
   ],
   experience: [
     {
-      role: "Research Intern: Face Image Quality CNN",
-      org: "University of Notre Dame",
-      period: "June 2026 – August 2026",
+      role: "Student Researcher: ArcIris Impostor-Tail Analysis",
+      org: "University of Notre Dame, CVRL",
+      period: "June 2026 – Present",
       bullets: [
-        "Designed and trained a compact SmallResNet (0.33M params) in PyTorch to predict OFIQ face-image quality on 70K FFHQ images (MAE 1.32, Pearson r = 0.866).",
-        "Built the model as a frozen differentiable quality critic for GAN training, enabling millisecond OFIQ-like feedback instead of multi-second full scoring.",
-        "Delivered a reproducible training/evaluation pipeline plus Streamlit/Flask demos."
+        "Built a reproducible evaluation pipeline around CVRL’s ArcIris matcher (ResNet100 + ArcFace; NIST IREX 10, FNIR 0.048 at FPIR = 0.01) with a stable image_id from ingest through embeddings, pairwise scores, and impostor-tail reports.",
+        "Cached iris embeddings after rubber-sheet unwrap and sampled up to 100k impostor pairs while keeping every genuine pair — avoiding N² model calls.",
+        "Tracked which irises dominate the impostor tail and cross-checked hits against ArcIris quality gates to separate capture/segmentation failures from true embedding collisions."
       ]
     },
     {
-      role: "Full Stack Developer; Front End Developer & Research Intern",
+      role: "Research Intern: Face Image Quality CNN",
+      org: "University of Notre Dame",
+      period: "May 2026 – June 2026",
+      bullets: [
+        "Designed and trained a compact SmallResNet (0.33M params) in PyTorch to predict OFIQ face-image quality on 70K FFHQ images (MAE 1.32, Pearson r = 0.866).",
+        "Cut overfitting from a 27× to 1.1× val/train MSE ratio versus ResNet-18, then froze the net as a millisecond differentiable quality critic for GAN training."
+      ]
+    },
+    {
+      role: "Full Stack Developer",
       org: "Pivot Access Ltd",
       period: "Aug 2023 – Jul 2025",
       bullets: [
         "Maintained production infrastructure with Kubernetes, Docker, Prometheus, Grafana, Loki, and New Relic.",
         "Automated CI/CD and monitoring workflows, reducing manual release steps and shortening incident detection time.",
-        "Shipped responsive React + Tailwind interfaces and used PostgreSQL/Matplotlib analysis to drive product decisions."
+        "Shipped responsive React + Tailwind CSS interfaces across client-facing web applications."
       ]
     }
   ],
   strengths: [
-    "Machine learning & computer vision (PyTorch, TensorFlow/Keras, scikit-learn)",
-    "Full-stack web development (React, Next.js, Node.js, Flask, FastAPI)",
-    "Cloud-native tooling (Docker, Kubernetes, monitoring stacks)",
+    "Machine learning & computer vision (PyTorch, iris/face biometrics, TensorFlow/Keras, scikit-learn)",
+    "Full-stack web development (React, Next.js, TypeScript, Flask, FastAPI, Firebase)",
+    "Cloud-native tooling (Docker, Kubernetes, GitHub Actions, monitoring stacks)",
     "Data analysis and visualization (Python, SQL, Plotly, Matplotlib)"
   ],
   resumePdfPath,

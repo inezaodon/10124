@@ -1,13 +1,14 @@
 "use client";
 
 import { FormEvent, useId, useState } from "react";
+import { CONTACT_PROJECT_OPTIONS, CONTACT_TOPICS } from "@/lib/contact";
 
 type FormState = "idle" | "sending" | "success" | "error";
 
 function userFacingError(code: string | undefined, serverMessage: string): string {
   switch (code) {
     case "EMAIL_NOT_CONFIGURED":
-      return "This form is not wired to email on this deployment yet. Use GitHub or your resume links to reach me.";
+      return "This form is not wired to email on this deployment yet. Use GitHub or the resume links to reach me.";
     case "MISSING_FIELDS":
     case "INVALID_EMAIL":
     case "BAD_REQUEST":
@@ -22,10 +23,14 @@ function userFacingError(code: string | undefined, serverMessage: string): strin
 export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [topic, setTopic] = useState("");
   const nameId = useId();
   const emailId = useId();
+  const topicId = useId();
+  const projectId = useId();
   const messageId = useId();
   const statusId = useId();
+  const showProject = topic === "project";
 
   function onFieldChange() {
     setErrorMessage(null);
@@ -63,12 +68,14 @@ export function ContactForm() {
         }
         setState("success");
         form.reset();
+        setTopic("");
         return;
       }
 
       if (response.ok && data.ok !== false) {
         setState("success");
         form.reset();
+        setTopic("");
         return;
       }
 
@@ -84,56 +91,105 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="pop-glass space-y-4 p-8" aria-describedby={statusId}>
       <div>
-        <p className="pop-kicker">Get in touch</p>
-        <h3 className="mt-1 text-xl font-extrabold text-slate-900 dark:text-zinc-50">Contact Me</h3>
+        <p className="pop-kicker">Email me</p>
+        <h3 className="mt-1 text-xl font-extrabold text-slate-900 dark:text-zinc-50">Ask a specific question</h3>
         <p className="mt-1 text-sm text-slate-600 dark:text-zinc-400">
-          I read every message. Replies go to the email you provide.
+          Pick a topic, write your question, and I will reply to the email you provide. Internship, research, and project
+          questions are all welcome.
         </p>
       </div>
 
-      <div className="space-y-1.5">
-        <label htmlFor={nameId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
-          Name
-        </label>
-        <input
-          id={nameId}
-          name="name"
-          type="text"
-          required
-          autoComplete="name"
-          placeholder="Your name"
-          className="pop-input"
-          onChange={onFieldChange}
-        />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-1.5">
+          <label htmlFor={nameId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
+            Name
+          </label>
+          <input
+            id={nameId}
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            placeholder="Your name"
+            className="pop-input"
+            onChange={onFieldChange}
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label htmlFor={emailId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
+            Email
+          </label>
+          <input
+            id={emailId}
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            inputMode="email"
+            placeholder="you@example.com"
+            className="pop-input"
+            onChange={onFieldChange}
+          />
+        </div>
       </div>
 
       <div className="space-y-1.5">
-        <label htmlFor={emailId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
-          Email
+        <label htmlFor={topicId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
+          What is this about?
         </label>
-        <input
-          id={emailId}
-          name="email"
-          type="email"
+        <select
+          id={topicId}
+          name="topic"
           required
-          autoComplete="email"
-          inputMode="email"
-          placeholder="you@example.com"
+          value={topic}
           className="pop-input"
-          onChange={onFieldChange}
-        />
+          onChange={(event) => {
+            setTopic(event.target.value);
+            onFieldChange();
+          }}
+        >
+          <option value="" disabled>
+            Choose a topic
+          </option>
+          {CONTACT_TOPICS.map((item) => (
+            <option key={item.value} value={item.value}>
+              {item.label}
+            </option>
+          ))}
+        </select>
       </div>
+
+      {showProject ? (
+        <div className="space-y-1.5">
+          <label htmlFor={projectId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
+            Which project?
+          </label>
+          <select id={projectId} name="project" required className="pop-input" onChange={onFieldChange} defaultValue="">
+            <option value="" disabled>
+              Select a project
+            </option>
+            {CONTACT_PROJECT_OPTIONS.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : (
+        <input type="hidden" name="project" value="" />
+      )}
 
       <div className="space-y-1.5">
         <label htmlFor={messageId} className="text-sm font-medium text-slate-800 dark:text-zinc-200">
-          Message
+          Your question
         </label>
         <textarea
           id={messageId}
           name="message"
           required
-          rows={5}
-          placeholder="What would you like to say?"
+          rows={6}
+          placeholder="What would you like to ask? The more specific, the better I can reply."
           className="pop-input resize-y"
           onChange={onFieldChange}
         />
@@ -144,16 +200,14 @@ export function ContactForm() {
         disabled={state === "sending"}
         className="pop-btn-primary w-full disabled:pointer-events-none disabled:opacity-60"
       >
-        {state === "sending" ? "Sending…" : "Send message"}
+        {state === "sending" ? "Sending…" : "Send question"}
       </button>
 
       <div id={statusId} role="status" aria-live="polite" className="min-h-[1.25rem] text-sm">
         {state === "success" && (
-          <p className="text-green-700 dark:text-green-400">Message sent. I’ll get back to you soon.</p>
+          <p className="text-green-700 dark:text-green-400">Question sent. I’ll get back to you at the email you provided.</p>
         )}
-        {state === "error" && errorMessage && (
-          <p className="text-red-700 dark:text-red-400">{errorMessage}</p>
-        )}
+        {state === "error" && errorMessage && <p className="text-red-700 dark:text-red-400">{errorMessage}</p>}
       </div>
     </form>
   );

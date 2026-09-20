@@ -1,4 +1,8 @@
 node_modules/
 .next/
-.env.local
 .DS_Store
+
+# Secrets — never commit API keys or local env
+.env
+.env.*
+!.env.example

@@ -71,7 +71,7 @@ export function ProjectGrid({ projects }: Props) {
                     src={projectContentMap[project.name]?.coverImage ?? fallbackProjectContent.coverImage}
                     alt={`${title} preview`}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="(min-width: 768px) 45vw, 100vw"
                   />
                 </div>
@@ -97,7 +97,7 @@ export function ProjectGrid({ projects }: Props) {
                       {liveUrl ? "Live deployed" : "No deployment URL yet"}
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 pt-1 text-sm">
+                  <div className="flex flex-wrap items-center gap-3 pt-1 text-sm">
                     <span className="font-semibold text-teal-700 dark:text-teal-400">View project</span>
                     <span className="text-slate-400" aria-hidden>
                       →
@@ -131,6 +131,20 @@ export function ProjectGrid({ projects }: Props) {
                     >
                       Recent changes
                     </a>
+                    {(content?.extraLinks ?? [])
+                      .filter((link) => link.showOnCard)
+                      .map((link) => (
+                      <a
+                        key={`${project.id}-${link.label}`}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pointer-events-auto relative z-20 rounded font-medium text-slate-600 underline-offset-2 transition hover:text-teal-700 hover:underline dark:text-slate-400 dark:hover:text-teal-400"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>

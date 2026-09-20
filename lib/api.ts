@@ -1,4 +1,13 @@
-import { isExcludedPortfolioRepo } from "@/lib/portfolio-config";
+import { isRepoApprovedForPortfolio } from "@/lib/portfolio-allowlist";
+import { getPortfolioAllowlist } from "@/lib/portfolio-github";
+import {
+  INTERNSHIP_TRACKER_REPOS,
+  INTERNSHIP_UMBRELLA_CANONICAL_REPO,
+  INTERNSHIP_UMBRELLA_SLUG,
+  isCollapsedInternshipRepo,
+  isExcludedPortfolioRepo
+} from "@/lib/portfolio-config";
+import { projectContentMap } from "@/lib/project-content";
 
 export type Project = {
   id: number;
@@ -35,15 +44,36 @@ async function fetchJson<T>(url: string, revalidateSeconds = 300): Promise<T> {
 }
 
 export async function getGitHubProjects(): Promise<Project[]> {
-  const repos = await fetchJson<Project[]>(
-    `https://api.github.com/users/${GITHUB_USER}/repos?sort=created&direction=desc&per_page=100`
-  );
+  const [repos, allowlist] = await Promise.all([
+    fetchJson<Project[]>(
+      `https://api.github.com/users/${GITHUB_USER}/repos?sort=created&direction=desc&per_page=100`,
+      60
+    ),
+    getPortfolioAllowlist()
+  ]);
 
-  return repos
+  const visible = repos
     .filter((repo) => !repo.name.toLowerCase().includes("config"))
     .filter((repo) => !repo.archived)
     .filter((repo) => !isExcludedPortfolioRepo(repo.name))
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    .filter((repo) => !isCollapsedInternshipRepo(repo.name))
+    .filter((repo) => isRepoApprovedForPortfolio(repo.name, allowlist));
+
+  const canonicalInternship =
+    repos.find((repo) => repo.name === INTERNSHIP_UMBRELLA_CANONICAL_REPO) ??
+    repos.find((repo) => INTERNSHIP_TRACKER_REPOS.includes(repo.name as (typeof INTERNSHIP_TRACKER_REPOS)[number]));
+
+  if (canonicalInternship && isRepoApprovedForPortfolio(INTERNSHIP_UMBRELLA_SLUG, allowlist)) {
+    const content = projectContentMap[INTERNSHIP_UMBRELLA_SLUG];
+    visible.push({
+      ...canonicalInternship,
+      name: INTERNSHIP_UMBRELLA_SLUG,
+      description: content?.shortSummary ?? canonicalInternship.description,
+      homepage: content?.liveDeployUrl ?? canonicalInternship.homepage
+    });
+  }
+
+  return visible.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 }
 
 export async function getDiscordPresence() {
